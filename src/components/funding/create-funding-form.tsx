@@ -11,19 +11,32 @@ import {
 } from "@chakra-ui/react";
 import { FaTwitter, FaDiscord, FaGlobe } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-import { useEthers, useConfig } from "@usedapp/core";
+import { useEthers } from "@usedapp/core";
 import LoginButton from "../common/login-button";
+import { useState } from "react";
 
 const CreateFundingForm = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const { account } = useEthers();
+  const [loading, setLoading] = useState(false);
 
-  const onSubmit = (data) => console.log({ ...data, owner: account });
+  const onSubmit = async (data) => {
+    setLoading(true);
+
+    const response = await fetch("api/project/create", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...data, owner: account }),
+    });
+
+    const responseData = await response.json();
+
+    console.log({ responseData });
+    setLoading(false);
+  };
 
   return (
     <Box w="70%" mt={8}>
@@ -134,6 +147,7 @@ const CreateFundingForm = () => {
         </FormControl>
         {account ? (
           <Button
+            isLoading={loading}
             type="submit"
             colorScheme="purple"
             shadow="md"
