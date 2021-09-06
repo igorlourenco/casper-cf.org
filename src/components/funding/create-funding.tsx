@@ -1,17 +1,19 @@
 import { Button } from "@chakra-ui/button";
 import { useRouter } from "next/router";
+import { FiPlus } from "react-icons/fi";
 
-const StartFunding = () => {
+const CreateFunding = () => {
   const router = useRouter();
   return (
     <Button
+      leftIcon={<FiPlus />}
       colorScheme="purple"
       textDecoration="none"
-      onClick={() => router.push("/create-funding")}
+      onClick={() => router.push("/funding/create")}
     >
-      Start funding
+      Create funding
     </Button>
   );
 };
 
-export default StartFunding;
+export default CreateFunding;

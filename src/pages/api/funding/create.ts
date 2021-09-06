@@ -23,8 +23,8 @@ async function connectToDatabase(uri: string) {
 export default async (request: NextApiRequest, response: NextApiResponse) => {
   let { ...data } = request.body;
 
-  const db = await connectToDatabase(process.env.MONGODB_URI);
-  const collection = db.collection("projects");
+  const db = await connectToDatabase(process.env.NEXT_APP_MONGODB_URI);
+  const collection = db.collection("fundings");
 
   await collection.insertOne({
     ...data,

@@ -1,5 +1,5 @@
-import CreateFundingForm from "../components/funding/create-funding-form";
-import Layout from "../components/common/layout";
+import CreateFundingForm from "../../components/funding/create-funding-form";
+import Layout from "../../components/common/layout";
 
 const CreateFunding = () => {
   return (

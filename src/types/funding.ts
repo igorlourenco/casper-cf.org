@@ -1,4 +1,5 @@
-export default interface Project {
+export default interface Funding {
+  _id: string;
   name: string;
   description: string;
   category: string;
@@ -8,6 +9,7 @@ export default interface Project {
   site: string;
   recipientAddress: string;
   amountNeeded: string;
+  active: boolean;
   owner: string;
   registeredAt: string;
 }

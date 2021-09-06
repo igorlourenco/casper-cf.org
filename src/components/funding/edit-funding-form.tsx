@@ -3,6 +3,7 @@ import { Input } from "@chakra-ui/input";
 import { Stack, Box } from "@chakra-ui/layout";
 import {
   Heading,
+  Flex,
   Textarea,
   Select,
   InputGroup,
@@ -15,23 +16,24 @@ import { useEthers } from "@usedapp/core";
 import LoginButton from "../common/login-button";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { FiCheck, FiMinus } from "react-icons/fi";
 
-const CreateFundingForm = () => {
+const EditFundingForm = ({ ...funding }: any) => {
   const { register, handleSubmit } = useForm();
   const { account } = useEthers();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = async (data) => {
+  const activateOrDeactivate = async () => {
     setLoading(true);
 
-    const response = await fetch("/api/funding/create", {
-      method: "POST",
+    const response = await fetch("/api/funding/edit", {
+      method: "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...data, active: true, owner: account }),
+      body: JSON.stringify({ active: !funding.active, id: funding._id }),
     });
 
     const responseData = await response.json();
@@ -41,14 +43,57 @@ const CreateFundingForm = () => {
     router.push("/my-fundings");
   };
 
+  const onSubmit = async (data) => {
+    setLoading(true);
+
+    const response = await fetch("/api/funding/edit", {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...data, id: funding._id }),
+    });
+
+    const responseData = await response.json();
+
+    console.log({ responseData });
+    setLoading(false);
+    router.push("/my-fundings");
+  };
+
+  if (!funding || !account) return null;
+
   return (
     <Box w="70%" mt={8}>
       <Stack spacing={6} as="form" onSubmit={handleSubmit(onSubmit)}>
-        <Heading>Start creating your funding</Heading>
+        <Flex alignItems="center" justifyContent="space-between">
+          <Heading>Edit {funding.name}</Heading>
+          {funding.active ? (
+            <Button
+              isLoading={loading}
+              onClick={activateOrDeactivate}
+              leftIcon={<FiMinus />}
+              colorScheme="red"
+            >
+              Deactivate
+            </Button>
+          ) : (
+            <Button
+              isLoading={loading}
+              onClick={activateOrDeactivate}
+              leftIcon={<FiCheck />}
+              colorScheme="green"
+            >
+              Reactivate
+            </Button>
+          )}
+        </Flex>
         <FormControl id="name" isRequired>
           <FormLabel>Project Name</FormLabel>
           <Input
             name="name"
+            defaultValue={funding.name}
             {...register("name", { required: true })}
             placeholder="My Amazing Project"
           />
@@ -56,6 +101,7 @@ const CreateFundingForm = () => {
         <FormControl id="description" isRequired>
           <FormLabel>Description</FormLabel>
           <Textarea
+            defaultValue={funding.description}
             name="description"
             {...register("description", { required: true })}
             placeholder="This is my amazing project!"
@@ -64,6 +110,7 @@ const CreateFundingForm = () => {
         <FormControl id="category" isRequired>
           <FormLabel>Category</FormLabel>
           <Select
+            value={funding.category}
             name="category"
             {...register("category", { required: true })}
             placeholder="Project category"
@@ -73,9 +120,10 @@ const CreateFundingForm = () => {
             <option value="Social">Social</option>
           </Select>
         </FormControl>
-        <FormControl id="hostedOn" isRequired>
+        <FormControl id="hosted" isRequired>
           <FormLabel>Hosted on</FormLabel>
           <Select
+            value={funding.hostedOn}
             name="hostedOn"
             {...register("hostedOn", { required: true })}
             placeholder="Where is your project hosted?"
@@ -96,6 +144,7 @@ const CreateFundingForm = () => {
                 children={<FaTwitter color="#1DA1F2" />}
               />
               <Input
+                defaultValue={funding.twitter}
                 type="text"
                 name="twitter"
                 {...register("twitter")}
@@ -110,6 +159,7 @@ const CreateFundingForm = () => {
                 children={<FaDiscord color="#5865F2" />}
               />
               <Input
+                defaultValue={funding.discord}
                 type="text"
                 name="discord"
                 {...register("discord")}
@@ -123,6 +173,7 @@ const CreateFundingForm = () => {
                 children={<FaGlobe color="gray.600" />}
               />
               <Input
+                defaultValue={funding.website}
                 name="site"
                 {...register("site")}
                 type="text"
@@ -136,6 +187,7 @@ const CreateFundingForm = () => {
         <FormControl id="recipient" isRequired>
           <FormLabel>Donation Recipient Address</FormLabel>
           <Input
+            defaultValue={funding.recipientAddress}
             name="recipientAddress"
             {...register("recipientAddress", { required: true })}
             placeholder="0x123ABCLOVEMYJOB1"
@@ -144,6 +196,7 @@ const CreateFundingForm = () => {
         <FormControl id="amount-needed" isRequired>
           <FormLabel>How many FTM do you need?</FormLabel>
           <Input
+            defaultValue={funding.amountNeeded}
             name="amountNeeded"
             {...register("amountNeeded", { required: true })}
             type="number"
@@ -158,7 +211,7 @@ const CreateFundingForm = () => {
             shadow="md"
             transform="uppercases"
           >
-            Create funding
+            Update funding
           </Button>
         ) : (
           <LoginButton />
@@ -168,4 +221,4 @@ const CreateFundingForm = () => {
   );
 };
 
-export default CreateFundingForm;
+export default EditFundingForm;

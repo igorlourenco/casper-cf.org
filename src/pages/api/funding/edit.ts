@@ -1,0 +1,39 @@
+import { MongoClient, Db, ObjectId } from "mongodb";
+import { NextApiRequest, NextApiResponse } from "next";
+import url from "url";
+
+let cachedDb: Db = null;
+
+async function connectToDatabase(uri: string) {
+  if (cachedDb) {
+    return cachedDb;
+  }
+
+  const client = await MongoClient.connect(uri);
+
+  const dbName = url.parse(uri).pathname.substr(1);
+
+  const db = client.db(dbName);
+
+  cachedDb = db;
+
+  return db;
+}
+
+export default async (request: NextApiRequest, response: NextApiResponse) => {
+  let { ...data } = request.body;
+
+  const db = await connectToDatabase(process.env.NEXT_APP_MONGODB_URI);
+  const collection = db.collection("fundings");
+
+  await collection.findOneAndUpdate(
+    { _id: new ObjectId(data.id.toString()) },
+    {
+      $set: {
+        ...data,
+      },
+    }
+  );
+
+  return response.status(201).json({ ok: true });
+};
