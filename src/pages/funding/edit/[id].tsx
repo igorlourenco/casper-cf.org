@@ -13,7 +13,9 @@ const EditFunding = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const url = new URL("http://localhost:3000/api/funding/find-by-id");
+      const url = new URL(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/funding/find-by-id`
+      );
       url.searchParams.append("id", router.query.id.toString());
       const response = await fetch(url.toString());
       const { funding } = await response.json();
