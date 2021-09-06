@@ -14,7 +14,7 @@ const MyFundings = () => {
   useEffect(() => {
     async function fetchData() {
       const url = new URL(
-        `${process.env.NEXT_APP_BASE_URL}/api/funding/get-by-owner`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/funding/get-by-owner`
       );
       url.searchParams.append("owner", account);
       const response = await fetch(url.toString());
