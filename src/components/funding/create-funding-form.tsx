@@ -11,6 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { FaTwitter, FaDiscord, FaGlobe } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import { useEthers, useConfig } from "@usedapp/core";
+import LoginButton from "../common/login-button";
 
 const CreateFundingForm = () => {
   const {
@@ -19,8 +21,9 @@ const CreateFundingForm = () => {
     watch,
     formState: { errors },
   } = useForm();
+  const { account } = useEthers();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => console.log({ ...data, owner: account });
 
   return (
     <Box w="70%" mt={8}>
@@ -129,14 +132,18 @@ const CreateFundingForm = () => {
             placeholder="10,000"
           />
         </FormControl>
-        <Button
-          type="submit"
-          colorScheme="purple"
-          shadow="md"
-          transform="uppercases"
-        >
-          Create funding
-        </Button>
+        {account ? (
+          <Button
+            type="submit"
+            colorScheme="purple"
+            shadow="md"
+            transform="uppercases"
+          >
+            Create funding
+          </Button>
+        ) : (
+          <LoginButton />
+        )}
       </Stack>
     </Box>
   );

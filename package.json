@@ -11,7 +11,10 @@
     "@chakra-ui/theme-tools": "1.1.2",
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
+    "@usedapp/core": "^0.4.7",
     "framer-motion": "^4.0.3",
+    "lodash": "^4.17.21",
+    "mongodb": "^4.1.1",
     "next": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -20,6 +23,7 @@
     "web3": "^1.5.2"
   },
   "devDependencies": {
+    "@types/mongodb": "^4.0.7",
     "@types/node": "^14.6.0",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
