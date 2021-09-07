@@ -13,6 +13,7 @@
     "@emotion/styled": "11.1.5",
     "@usedapp/core": "^0.4.7",
     "date-fns": "^2.23.0",
+    "ethers": "^5.4.6",
     "framer-motion": "^4.0.3",
     "lodash": "^4.17.21",
     "mongodb": "^4.1.1",
@@ -22,7 +23,8 @@
     "react-hook-form": "^7.15.0",
     "react-icons": "^4.2.0",
     "slug": "^5.1.0",
-    "web3": "^1.5.2"
+    "web3": "^1.5.2",
+    "web3modal": "^1.9.4"
   },
   "devDependencies": {
     "@types/mongodb": "^4.0.7",
