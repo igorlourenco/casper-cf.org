@@ -20,19 +20,30 @@ async function connectToDatabase(uri: string) {
   return db;
 }
 
-export default async (request: NextApiRequest, response: NextApiResponse) => {
-  let { id } = request.query;
+export async function findFundingBySlug(slug: string) {
+  const db = await connectToDatabase(process.env.NEXT_PUBLIC_MONGODB_URI);
+  const collection = db.collection("fundings");
 
+  const { _id, registeredAt, ...funding } = await collection.findOne({
+    slug,
+  });
+
+  const newId = JSON.stringify(_id);
+  const newRegisteredAt = registeredAt.toISOString();
+
+  return { funding: { _id: newId, registeredAt: newRegisteredAt, ...funding } };
+}
+
+export async function getFunding() {
   const db = await connectToDatabase(process.env.NEXT_PUBLIC_MONGODB_URI);
   const collection = db.collection("fundings");
 
   const data = await collection
-    .find({
-      _id: new ObjectId(id.toString()),
-    })
-    .sort({ active: -1, registeredAt: -1 });
+    .find({})
+    .sort({ active: -1, registeredAt: -1 })
+    .limit(10);
 
   const fundings = await data.toArray();
 
-  return response.status(201).json({ funding: fundings[0] });
-};
+  return { fundings };
+}

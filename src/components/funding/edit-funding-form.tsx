@@ -16,32 +16,13 @@ import { useEthers } from "@usedapp/core";
 import LoginButton from "../common/login-button";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { FiCheck, FiMinus } from "react-icons/fi";
+import Funding from "../../types/funding";
 
 const EditFundingForm = ({ ...funding }: any) => {
   const { register, handleSubmit } = useForm();
   const { account } = useEthers();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-
-  const activateOrDeactivate = async () => {
-    setLoading(true);
-
-    const response = await fetch("/api/funding/edit", {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ active: !funding.active, id: funding._id }),
-    });
-
-    const responseData = await response.json();
-
-    console.log({ responseData });
-    setLoading(false);
-    router.push("/my-fundings");
-  };
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -69,25 +50,6 @@ const EditFundingForm = ({ ...funding }: any) => {
       <Stack spacing={6} as="form" onSubmit={handleSubmit(onSubmit)}>
         <Flex alignItems="center" justifyContent="space-between">
           <Heading>Edit {funding.name}</Heading>
-          {funding.active ? (
-            <Button
-              isLoading={loading}
-              onClick={activateOrDeactivate}
-              leftIcon={<FiMinus />}
-              colorScheme="red"
-            >
-              Deactivate
-            </Button>
-          ) : (
-            <Button
-              isLoading={loading}
-              onClick={activateOrDeactivate}
-              leftIcon={<FiCheck />}
-              colorScheme="green"
-            >
-              Reactivate
-            </Button>
-          )}
         </Flex>
         <FormControl id="name" isRequired>
           <FormLabel>Project Name</FormLabel>
@@ -173,7 +135,7 @@ const EditFundingForm = ({ ...funding }: any) => {
                 children={<FaGlobe color="gray.600" />}
               />
               <Input
-                defaultValue={funding.website}
+                defaultValue={funding.site}
                 name="site"
                 {...register("site")}
                 type="text"

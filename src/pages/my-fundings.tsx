@@ -4,6 +4,7 @@ import { useEthers } from "@usedapp/core";
 import { useEffect, useState } from "react";
 import Layout from "../components/common/layout";
 import CreateFunding from "../components/funding/create-funding";
+import FundingList from "../components/funding/funding-list";
 import FundingPreview from "../components/funding/funding-preview";
 import Funding from "../types/funding";
 
@@ -43,9 +44,7 @@ const MyFundings = () => {
             shadow="md"
             p="4"
           >
-            {fundings.map((funding) => (
-              <FundingPreview {...funding} key={funding._id} />
-            ))}
+            <FundingList fundings={fundings} />
           </Stack>
         ) : (
           <Text>No fundings yet</Text>

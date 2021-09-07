@@ -1,6 +1,6 @@
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
-import { Stack, Box } from "@chakra-ui/layout";
+import { Stack, Box, Text, Flex } from "@chakra-ui/layout";
 import {
   Heading,
   Textarea,
@@ -8,19 +8,54 @@ import {
   InputGroup,
   InputLeftElement,
   Button,
+  IconButton,
+  useToast,
 } from "@chakra-ui/react";
 import { FaTwitter, FaDiscord, FaGlobe } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useEthers } from "@usedapp/core";
 import LoginButton from "../common/login-button";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
+import slug from "slug";
+import { FiCopy } from "react-icons/fi";
 
 const CreateFundingForm = () => {
+  const toast = useToast();
   const { register, handleSubmit } = useForm();
   const { account } = useEthers();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [slugUrl, setSlugUrl] = useState<string | null>(null);
+
+  function randomString() {
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < 6; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  const copyUrlToClipboard = () => {
+    async () => {
+      await navigator.clipboard.writeText(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/${slugUrl}`
+      );
+
+      toast({
+        position: "bottom",
+        duration: 3000,
+        render: () => (
+          <Box color="white" p={3} bg="purple.400" borderRadius="sm">
+            <Text fontWeight="medium">URL Copied to your clipboard!</Text>
+          </Box>
+        ),
+      });
+    };
+  };
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -31,7 +66,12 @@ const CreateFundingForm = () => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...data, active: true, owner: account }),
+      body: JSON.stringify({
+        ...data,
+        active: true,
+        owner: account,
+        slug: slugUrl,
+      }),
     });
 
     const responseData = await response.json();
@@ -48,6 +88,12 @@ const CreateFundingForm = () => {
         <FormControl id="name" isRequired>
           <FormLabel>Project Name</FormLabel>
           <Input
+            onKeyDown={(e: any) => {
+              console.log(e.target.value);
+              const endingUrl = randomString();
+              const slugUrl = slug(e.target.value);
+              setSlugUrl(`${slugUrl}-${endingUrl}`);
+            }}
             name="name"
             {...register("name", { required: true })}
             placeholder="My Amazing Project"
@@ -149,6 +195,24 @@ const CreateFundingForm = () => {
             type="number"
             placeholder="10,000"
           />
+        </FormControl>
+        <FormControl id="slug">
+          <FormLabel>Share your funding with this link</FormLabel>
+          {slugUrl && (
+            <Flex alignItems="center" gridGap={3}>
+              <Text
+                fontWeight="semibold"
+                color="gray.500"
+              >{`${process.env.NEXT_PUBLIC_BASE_URL}/${slugUrl}`}</Text>
+              <IconButton
+                onClick={copyUrlToClipboard}
+                variant="ghost"
+                size="sm"
+                aria-label="copy"
+                icon={<FiCopy />}
+              />
+            </Flex>
+          )}
         </FormControl>
         {account ? (
           <Button

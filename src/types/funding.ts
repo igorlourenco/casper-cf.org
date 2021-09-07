@@ -11,5 +11,6 @@ export default interface Funding {
   amountNeeded: string;
   active: boolean;
   owner: string;
+  slug: string;
   registeredAt: string;
 }
