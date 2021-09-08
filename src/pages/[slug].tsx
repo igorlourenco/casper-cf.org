@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
 import { findFundingBySlug, getFunding } from "../database/funding";
@@ -22,7 +22,7 @@ const Funding = ({ funding }: { funding: IFunding }) => {
   const donate = async () => {
     if (!amount) return;
     const data = await sendDonation(Number(amount), funding.owner);
-    console.log(data.error, data.transaction);
+
     if (data.error) {
       toast({
         title: "Oops, something got wrong.",
@@ -127,7 +127,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const { fundings } = await getFunding();
-  console.log({ fundings });
   const paths = fundings.map((funding: IFunding) => ({
     params: { slug: funding.slug },
   }));

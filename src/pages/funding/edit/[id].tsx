@@ -20,7 +20,6 @@ const EditFunding = () => {
       const response = await fetch(url.toString());
       const { funding } = await response.json();
       setFunding(funding);
-      console.log(funding);
     }
 
     if (account) {

@@ -76,7 +76,6 @@ const CreateFundingForm = () => {
 
     const responseData = await response.json();
 
-    console.log({ responseData });
     setLoading(false);
     router.push("/my-fundings");
   };
@@ -89,7 +88,6 @@ const CreateFundingForm = () => {
           <FormLabel>Project Name</FormLabel>
           <Input
             onKeyDown={(e: any) => {
-              console.log(e.target.value);
               const endingUrl = randomString();
               const slugUrl = slug(e.target.value);
               setSlugUrl(`${slugUrl}-${endingUrl}`);

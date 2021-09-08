@@ -9,7 +9,7 @@ const LoginButton = () => {
       variant="outline"
       colorScheme="purple"
       onClick={() => {
-        activateBrowserWallet((err) => console.log(err));
+        activateBrowserWallet();
       }}
     >
       Connect to Metamask

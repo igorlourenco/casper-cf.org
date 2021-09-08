@@ -38,7 +38,6 @@ const EditFundingForm = ({ ...funding }: any) => {
 
     const responseData = await response.json();
 
-    console.log({ responseData });
     setLoading(false);
     router.push("/my-fundings");
   };
