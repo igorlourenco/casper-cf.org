@@ -19,7 +19,7 @@ const Menu = ({ account, deactivate }: MenuProps) => {
   return (
     <ChakraMenu>
       <MenuButton
-        colorScheme="purple"
+        colorScheme="blue"
         as={Button}
         rightIcon={<ChevronDownIcon />}
       >

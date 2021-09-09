@@ -7,7 +7,7 @@ const LoginButton = () => {
   return (
     <Button
       variant="outline"
-      colorScheme="purple"
+      colorScheme="blue"
       onClick={() => {
         activateBrowserWallet();
       }}

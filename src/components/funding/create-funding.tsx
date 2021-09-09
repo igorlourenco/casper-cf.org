@@ -6,8 +6,10 @@ const CreateFunding = () => {
   const router = useRouter();
   return (
     <Button
+      rounded="lg"
+      shadow="lg"
       leftIcon={<FiPlus />}
-      colorScheme="purple"
+      colorScheme="blue"
       textDecoration="none"
       onClick={() => router.push("/funding/create")}
     >

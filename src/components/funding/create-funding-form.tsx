@@ -77,7 +77,7 @@ const CreateFundingForm = () => {
         position: "bottom",
         duration: 3000,
         render: () => (
-          <Box color="white" p={3} bg="purple.400" borderRadius="sm">
+          <Box color="white" p={3} bg="blue.400" borderRadius="sm">
             <Text fontWeight="medium">URL Copied to your clipboard!</Text>
           </Box>
         ),
@@ -110,10 +110,14 @@ const CreateFundingForm = () => {
   return (
     <Box w="70%" mt={8}>
       <Stack spacing={6} as="form" onSubmit={handleSubmit(onSubmit)}>
-        <Heading>Start creating your funding</Heading>
+        <Heading size="lg">
+          Register your project to receive community funding
+        </Heading>
         <FormControl id="name">
           <FormLabel>Project Name</FormLabel>
           <Input
+            rounded="lg"
+            shadow="sm"
             onKeyUp={(e: any) => {
               const endingUrl = randomString();
               const slugUrl = slug(e.target.value);
@@ -125,13 +129,14 @@ const CreateFundingForm = () => {
           />
         </FormControl>
         <Flex
-          alignItems="center"
+          alignItems="flex-start"
           gridGap={8}
           justifyContent="flex-start"
           w="100%"
         >
           <FormControl w="auto">
             <Input
+              rounded="lg"
               type="file"
               display="none"
               ref={profilePhotoRef}
@@ -140,6 +145,8 @@ const CreateFundingForm = () => {
             {profilePhotoHash ? (
               <Stack w="auto" alignItems="flex-end" gridGap={2} minW="150px">
                 <Image
+                  rounded="lg"
+                  shadow="sm"
                   cursor="pointer"
                   onClick={() =>
                     profilePhotoRef!! &&
@@ -148,18 +155,17 @@ const CreateFundingForm = () => {
                   }
                   width="150px"
                   height="150px"
-                  rounded="md"
                   src={`https://ipfs.infura.io/ipfs/${profilePhotoHash}`}
                 />
               </Stack>
             ) : (
               <Flex
+                rounded="lg"
                 onClick={() =>
                   profilePhotoRef!! &&
                   profilePhotoRef.current!! &&
                   profilePhotoRef.current.click()
                 }
-                rounded="md"
                 cursor="pointer"
                 w="150px"
                 alignItems="center"
@@ -181,6 +187,8 @@ const CreateFundingForm = () => {
           <FormControl id="description" w="full">
             <FormLabel>Description</FormLabel>
             <Textarea
+              rounded="lg"
+              shadow="sm"
               name="description"
               {...register("description")}
               placeholder="This is my amazing project!"
@@ -191,6 +199,8 @@ const CreateFundingForm = () => {
         <FormControl id="category">
           <FormLabel>Category</FormLabel>
           <Select
+            rounded="lg"
+            shadow="sm"
             name="category"
             {...register("category")}
             placeholder="Project category"
@@ -203,6 +213,8 @@ const CreateFundingForm = () => {
         <FormControl id="hostedOn">
           <FormLabel>Hosted on</FormLabel>
           <Select
+            rounded="lg"
+            shadow="sm"
             name="hostedOn"
             {...register("hostedOn")}
             placeholder="Where is your project hosted?"
@@ -210,11 +222,11 @@ const CreateFundingForm = () => {
             <option value="Fantom">Fantom</option>
             <option value="Other blockchain">Other blockchain</option>
             <option value="It is not a blockchain-based project">
-              It'= is not a blockchain-based project
+              It is not a blockchain-based project
             </option>
           </Select>
         </FormControl>
-        <Stack spacing={0}>
+        <Stack spacing={0} shadow="sm">
           <FormLabel>Social & Community</FormLabel>
           <FormControl id="social">
             <InputGroup>
@@ -261,16 +273,20 @@ const CreateFundingForm = () => {
           </FormControl>
         </Stack>
         <FormControl id="recipient">
-          <FormLabel>Donation Recipient Address</FormLabel>
+          <FormLabel>Receiver Address</FormLabel>
           <Input
+            shadow="sm"
+            rounded="lg"
             name="recipientAddress"
             {...register("recipientAddress")}
             placeholder="0x123ABCLOVEMYJOB1"
           />
         </FormControl>
         <FormControl id="amount-needed">
-          <FormLabel>How many FTM do you need?</FormLabel>
+          <FormLabel>How many FTM do your project need?</FormLabel>
           <Input
+            shadow="sm"
+            rounded="lg"
             name="amountNeeded"
             {...register("amountNeeded")}
             type="number"
@@ -278,7 +294,9 @@ const CreateFundingForm = () => {
           />
         </FormControl>
         <FormControl id="slug">
-          <FormLabel>Share your funding with this link</FormLabel>
+          <FormLabel>
+            Share your funding project with your network using this link
+          </FormLabel>
           {slugUrl && (
             <Flex alignItems="center" gridGap={3}>
               <Text
@@ -297,13 +315,14 @@ const CreateFundingForm = () => {
         </FormControl>
         {account ? (
           <Button
+            shadow="lg"
+            rounded="lg"
             isLoading={loading}
             type="submit"
-            colorScheme="purple"
-            shadow="md"
+            colorScheme="blue"
             transform="uppercases"
           >
-            Create funding
+            Create a Funding
           </Button>
         ) : (
           <LoginButton />

@@ -39,7 +39,7 @@ const MyFundings = () => {
           <Stack
             spacing={4}
             mt={8}
-            bg="whiteAlpha.800"
+            bg="whibluepha.800"
             borderRadius="md"
             shadow="md"
             p="4"

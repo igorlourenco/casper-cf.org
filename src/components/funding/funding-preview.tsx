@@ -52,7 +52,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
       position: "bottom",
       duration: 3000,
       render: () => (
-        <Box color="white" p={3} bg="purple.400" borderRadius="sm">
+        <Box color="white" p={3} bg="blue.400" borderRadius="sm">
           <Text fontWeight="medium">URL Copied to your clipboard!</Text>
         </Box>
       ),
@@ -113,7 +113,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
               textTransform="uppercase"
               size="sm"
               variant="ghost"
-              colorScheme="purple"
+              colorScheme="blue"
               leftIcon={<FiUsers />}
             >
               Supporters
@@ -124,7 +124,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
               textTransform="uppercase"
               size="sm"
               variant="ghost"
-              colorScheme="purple"
+              colorScheme="blue"
               leftIcon={<FiCheck />}
             >
               {funding.active ? "End" : "Reactivate"} Funding
@@ -135,7 +135,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
               variant="ghost"
               onClick={onOpen}
               icon={<FiShare2 />}
-              colorScheme="purple"
+              colorScheme="blue"
             />
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
               <ModalOverlay />
@@ -176,7 +176,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
               variant="ghost"
               onClick={() => router.push(`/funding/edit/${funding._id}`)}
               icon={<FiSettings />}
-              colorScheme="purple"
+              colorScheme="blue"
             />
           </Flex>
         </Flex>
@@ -191,7 +191,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
           <Image
             w="150px"
             h="150px"
-            rounded="md"
+            rounded="lg"
             src={
               `https://ipfs.io/ipfs/${funding.profilePhotoHash}` ||
               "https://via.placeholder.com/150"

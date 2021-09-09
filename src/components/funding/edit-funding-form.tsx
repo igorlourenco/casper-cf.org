@@ -109,7 +109,7 @@ const EditFundingForm = ({ ...funding }: any) => {
             {profilePhotoHash ? (
               <Stack w="auto" alignItems="flex-end" gridGap={2} minW="150px">
                 <Image
-                  rounded="md"
+                  rounded="lg"
                   cursor="pointer"
                   onClick={() =>
                     profilePhotoRef!! &&
@@ -128,7 +128,7 @@ const EditFundingForm = ({ ...funding }: any) => {
                   profilePhotoRef.current!! &&
                   profilePhotoRef.current.click()
                 }
-                rounded="md"
+                rounded="lg"
                 cursor="pointer"
                 w="150px"
                 alignItems="center"
@@ -257,7 +257,7 @@ const EditFundingForm = ({ ...funding }: any) => {
           <Button
             isLoading={loading}
             type="submit"
-            colorScheme="purple"
+            colorScheme="blue"
             shadow="md"
             transform="uppercases"
           >

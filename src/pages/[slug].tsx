@@ -56,7 +56,7 @@ const Funding = ({ funding }: { funding: IFunding }) => {
                 <Badge fontSize="md" colorScheme="blue">
                   {funding.category}
                 </Badge>
-                <Badge fontSize="md" colorScheme="purple">
+                <Badge fontSize="md" colorScheme="blue">
                   {funding.hostedOn}
                 </Badge>
               </Flex>
@@ -104,15 +104,20 @@ const Funding = ({ funding }: { funding: IFunding }) => {
               </Stack>
               <Stack>
                 <Text fontSize="lg" fontWeight="medium">
-                  Funded 1000/{funding.amountNeeded} FTM
+                  Funded{" "}
+                  <Text as="span" fontWeight="bold">
+                    1000/{funding.amountNeeded}
+                  </Text>{" "}
+                  FTM
                 </Text>
                 <Input
                   onChange={(e: any) => setAmount(e.target.value)}
                   placeholder="How many FTM do you want to send?"
                 />
                 <Button
+                  rounded="lg"
                   isDisabled={!amount}
-                  colorScheme="purple"
+                  colorScheme="blue"
                   onClick={donate}
                 >
                   Send funds

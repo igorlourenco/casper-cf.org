@@ -12,23 +12,31 @@ const breakpoints = createBreakpoints({
 
 const components = {
   Input: {
+    baseStyle: {},
     defaultProps: {
-      focusBorderColor: "purple.500",
+      focusBorderColor: "blue.500",
     },
   },
   Select: {
+    baseStyle: { shadow: "md" },
     defaultProps: {
-      focusBorderColor: "purple.500",
+      focusBorderColor: "blue.500",
     },
   },
   Textarea: {
+    baseStyle: { shadow: "md" },
     defaultProps: {
-      focusBorderColor: "purple.500",
+      focusBorderColor: "blue.500",
     },
   },
   Heading: {
     baseStyle: {
-      fontFamily: "'Open Sans', sans-serif",
+      fontFamily: "'Merriweather', sans-serif",
+    },
+  },
+  FormLabel: {
+    baseStyle: {
+      fontWeight: "semibold",
     },
   },
 };
@@ -38,6 +46,7 @@ const styles = {
     body: {
       fontFamily: "'Open Sans', sans-serif",
       color: "gray.700",
+      backgroundColor: "#fbfbf8",
     },
   },
 };
