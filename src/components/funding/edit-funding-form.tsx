@@ -14,15 +14,35 @@ import { FaTwitter, FaDiscord, FaGlobe } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useEthers } from "@usedapp/core";
 import LoginButton from "../common/login-button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Funding from "../../types/funding";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  name: yup.string().required(),
+  description: yup.string().required(),
+  category: yup.string().required(),
+  hostedOn: yup.string().required(),
+  twitter: yup.string(),
+  discord: yup.string(),
+  site: yup.string(),
+  recipientAddress: yup.string().required(),
+  amountNeeded: yup.string().required(),
+});
 
 const EditFundingForm = ({ ...funding }: any) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: funding,
+    resolver: yupResolver(schema),
+  });
   const { account } = useEthers();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    reset({ ...funding });
+  }, []);
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -50,7 +70,7 @@ const EditFundingForm = ({ ...funding }: any) => {
         <Flex alignItems="center" justifyContent="space-between">
           <Heading>Edit {funding.name}</Heading>
         </Flex>
-        <FormControl id="name" isRequired>
+        <FormControl>
           <FormLabel>Project Name</FormLabel>
           <Input
             name="name"
@@ -59,16 +79,16 @@ const EditFundingForm = ({ ...funding }: any) => {
             placeholder="My Amazing Project"
           />
         </FormControl>
-        <FormControl id="description" isRequired>
+        <FormControl>
           <FormLabel>Description</FormLabel>
           <Textarea
-            defaultValue={funding.description}
             name="description"
+            defaultValue={funding.description}
             {...register("description", { required: true })}
             placeholder="This is my amazing project!"
           />
         </FormControl>
-        <FormControl id="category" isRequired>
+        <FormControl>
           <FormLabel>Category</FormLabel>
           <Select
             value={funding.category}
@@ -81,7 +101,7 @@ const EditFundingForm = ({ ...funding }: any) => {
             <option value="Social">Social</option>
           </Select>
         </FormControl>
-        <FormControl id="hosted" isRequired>
+        <FormControl>
           <FormLabel>Hosted on</FormLabel>
           <Select
             value={funding.hostedOn}
@@ -98,7 +118,7 @@ const EditFundingForm = ({ ...funding }: any) => {
         </FormControl>
         <Stack spacing={0}>
           <FormLabel>Social & Community</FormLabel>
-          <FormControl id="social">
+          <FormControl>
             <InputGroup>
               <InputLeftElement
                 pointerEvents="none"
@@ -145,7 +165,7 @@ const EditFundingForm = ({ ...funding }: any) => {
             </InputGroup>
           </FormControl>
         </Stack>
-        <FormControl id="recipient" isRequired>
+        <FormControl>
           <FormLabel>Donation Recipient Address</FormLabel>
           <Input
             defaultValue={funding.recipientAddress}
@@ -154,7 +174,7 @@ const EditFundingForm = ({ ...funding }: any) => {
             placeholder="0x123ABCLOVEMYJOB1"
           />
         </FormControl>
-        <FormControl id="amount-needed" isRequired>
+        <FormControl>
           <FormLabel>How many FTM do you need?</FormLabel>
           <Input
             defaultValue={funding.amountNeeded}

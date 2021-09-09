@@ -19,12 +19,29 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import slug from "slug";
 import { FiCopy } from "react-icons/fi";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  name: yup.string().required(),
+  description: yup.string().required(),
+  category: yup.string().required(),
+  hostedOn: yup.string().required(),
+  twitter: yup.string(),
+  discord: yup.string(),
+  site: yup.string(),
+  recipientAddress: yup.string().required(),
+  amountNeeded: yup.string().required(),
+});
 
 const CreateFundingForm = () => {
-  const toast = useToast();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm({
+    resolver: yupResolver(schema),
+  });
   const { account } = useEthers();
   const router = useRouter();
+  const toast = useToast();
+
   const [loading, setLoading] = useState(false);
   const [slugUrl, setSlugUrl] = useState<string | null>(null);
 
@@ -60,7 +77,7 @@ const CreateFundingForm = () => {
   const onSubmit = async (data) => {
     setLoading(true);
 
-    const response = await fetch("/api/funding/create", {
+    await fetch("/api/funding/create", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -74,8 +91,6 @@ const CreateFundingForm = () => {
       }),
     });
 
-    const responseData = await response.json();
-
     setLoading(false);
     router.push("/my-fundings");
   };
@@ -84,7 +99,7 @@ const CreateFundingForm = () => {
     <Box w="70%" mt={8}>
       <Stack spacing={6} as="form" onSubmit={handleSubmit(onSubmit)}>
         <Heading>Start creating your funding</Heading>
-        <FormControl id="name" isRequired>
+        <FormControl id="name">
           <FormLabel>Project Name</FormLabel>
           <Input
             onKeyDown={(e: any) => {
@@ -93,23 +108,23 @@ const CreateFundingForm = () => {
               setSlugUrl(`${slugUrl}-${endingUrl}`);
             }}
             name="name"
-            {...register("name", { required: true })}
+            {...register("name")}
             placeholder="My Amazing Project"
           />
         </FormControl>
-        <FormControl id="description" isRequired>
+        <FormControl id="description">
           <FormLabel>Description</FormLabel>
           <Textarea
             name="description"
-            {...register("description", { required: true })}
+            {...register("description")}
             placeholder="This is my amazing project!"
           />
         </FormControl>
-        <FormControl id="category" isRequired>
+        <FormControl id="category">
           <FormLabel>Category</FormLabel>
           <Select
             name="category"
-            {...register("category", { required: true })}
+            {...register("category")}
             placeholder="Project category"
           >
             <option value="DeFi">DeFi</option>
@@ -117,11 +132,11 @@ const CreateFundingForm = () => {
             <option value="Social">Social</option>
           </Select>
         </FormControl>
-        <FormControl id="hostedOn" isRequired>
+        <FormControl id="hostedOn">
           <FormLabel>Hosted on</FormLabel>
           <Select
             name="hostedOn"
-            {...register("hostedOn", { required: true })}
+            {...register("hostedOn")}
             placeholder="Where is your project hosted?"
           >
             <option value="Fantom">Fantom</option>
@@ -177,19 +192,19 @@ const CreateFundingForm = () => {
             </InputGroup>
           </FormControl>
         </Stack>
-        <FormControl id="recipient" isRequired>
+        <FormControl id="recipient">
           <FormLabel>Donation Recipient Address</FormLabel>
           <Input
             name="recipientAddress"
-            {...register("recipientAddress", { required: true })}
+            {...register("recipientAddress")}
             placeholder="0x123ABCLOVEMYJOB1"
           />
         </FormControl>
-        <FormControl id="amount-needed" isRequired>
+        <FormControl id="amount-needed">
           <FormLabel>How many FTM do you need?</FormLabel>
           <Input
             name="amountNeeded"
-            {...register("amountNeeded", { required: true })}
+            {...register("amountNeeded")}
             type="number"
             placeholder="10,000"
           />
