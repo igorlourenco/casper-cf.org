@@ -28,7 +28,7 @@ const components = {
   },
   Heading: {
     baseStyle: {
-      fontFamily: "'IBM Plex Sans Arabic', sans-serif",
+      fontFamily: "'Open Sans', sans-serif",
     },
   },
 };
@@ -36,7 +36,7 @@ const components = {
 const styles = {
   global: {
     body: {
-      fontFamily: "'IBM Plex Sans Arabic', sans-serif",
+      fontFamily: "'Open Sans', sans-serif",
       color: "gray.700",
     },
   },

@@ -41,10 +41,10 @@ const Funding = ({ funding }: { funding: IFunding }) => {
           <Image
             src={
               `https://ipfs.io/ipfs/${funding.profilePhotoHash}` ||
-              "https://via.placeholder.com/500"
+              "https://via.placeholder.com/450"
             }
-            w="500px"
-            h="500px"
+            w="450px"
+            h="450px"
           />
           <Stack spacing={8} w="full">
             <Stack>
