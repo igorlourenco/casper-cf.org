@@ -9,15 +9,18 @@ import {
   InputGroup,
   InputLeftElement,
   Button,
+  Image,
 } from "@chakra-ui/react";
 import { FaTwitter, FaDiscord, FaGlobe } from "react-icons/fa";
+import { FiImage } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import { useEthers } from "@usedapp/core";
 import LoginButton from "../common/login-button";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { uploadToIpfs } from "../../utils/ipfs";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -38,7 +41,18 @@ const EditFundingForm = ({ ...funding }: any) => {
   });
   const { account } = useEthers();
   const router = useRouter();
+
+  const profilePhotoRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const [profilePhotoHash, setProfilePhotoHash] = useState(
+    funding.profilePhotoHash
+  );
+
+  async function onProfilePhotoChange(e) {
+    const file = e.target.files[0];
+    const iconHash = await uploadToIpfs(file);
+    setProfilePhotoHash(iconHash);
+  }
 
   useEffect(() => {
     reset({ ...funding });
@@ -53,7 +67,7 @@ const EditFundingForm = ({ ...funding }: any) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...data, id: funding._id }),
+      body: JSON.stringify({ ...data, id: funding._id, profilePhotoHash }),
     });
 
     const responseData = await response.json();
@@ -79,15 +93,70 @@ const EditFundingForm = ({ ...funding }: any) => {
             placeholder="My Amazing Project"
           />
         </FormControl>
-        <FormControl>
-          <FormLabel>Description</FormLabel>
-          <Textarea
-            name="description"
-            defaultValue={funding.description}
-            {...register("description", { required: true })}
-            placeholder="This is my amazing project!"
-          />
-        </FormControl>
+        <Flex
+          alignItems="center"
+          gridGap={8}
+          justifyContent="flex-start"
+          w="100%"
+        >
+          <FormControl w="auto">
+            <Input
+              type="file"
+              display="none"
+              ref={profilePhotoRef}
+              onChange={onProfilePhotoChange}
+            />
+            {profilePhotoHash ? (
+              <Stack w="auto" alignItems="flex-end" gridGap={2} minW="150px">
+                <Image
+                  rounded="md"
+                  cursor="pointer"
+                  onClick={() =>
+                    profilePhotoRef!! &&
+                    profilePhotoRef.current!! &&
+                    profilePhotoRef.current.click()
+                  }
+                  width="150px"
+                  height="150px"
+                  src={`https://ipfs.infura.io/ipfs/${profilePhotoHash}`}
+                />
+              </Stack>
+            ) : (
+              <Flex
+                onClick={() =>
+                  profilePhotoRef!! &&
+                  profilePhotoRef.current!! &&
+                  profilePhotoRef.current.click()
+                }
+                rounded="md"
+                cursor="pointer"
+                w="150px"
+                alignItems="center"
+                justifyContent="center"
+                h="150px"
+                borderWidth="2px"
+                borderStyle="dashed"
+                borderColor="gray.300"
+                color="gray.300"
+                _hover={{
+                  borderColor: "gray.400",
+                  color: "gray.400",
+                }}
+              >
+                <FiImage size="40" />
+              </Flex>
+            )}
+          </FormControl>
+          <FormControl id="description" w="full">
+            <FormLabel>Description</FormLabel>
+            <Textarea
+              defaultValue={funding.description}
+              name="description"
+              {...register("description")}
+              placeholder="This is my amazing project!"
+            />
+          </FormControl>
+        </Flex>
         <FormControl>
           <FormLabel>Category</FormLabel>
           <Select

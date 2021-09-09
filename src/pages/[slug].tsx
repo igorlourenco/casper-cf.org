@@ -38,8 +38,15 @@ const Funding = ({ funding }: { funding: IFunding }) => {
     <Layout>
       <Box w="100%" mt={8}>
         <Flex alignItems="flex-start" gridGap={8}>
-          <Image src="https://via.placeholder.com/500" w="500px" h="500px" />
-          <Stack spacing={8}>
+          <Image
+            src={
+              `https://ipfs.io/ipfs/${funding.profilePhotoHash}` ||
+              "https://via.placeholder.com/500"
+            }
+            w="500px"
+            h="500px"
+          />
+          <Stack spacing={8} w="full">
             <Stack>
               <Heading>{funding.name}</Heading>
               <Text color="gray.600" fontWeight="medium">
@@ -54,7 +61,12 @@ const Funding = ({ funding }: { funding: IFunding }) => {
                 </Badge>
               </Flex>
             </Stack>
-            <Flex mt={8} justifyContent="space-between">
+            <Flex
+              mt={8}
+              justifyContent="space-between"
+              alignItems="center"
+              w="auto"
+            >
               <Stack>
                 <Flex alignItems="center" gridGap={2}>
                   <FaTwitter color="#1DA1F2" />

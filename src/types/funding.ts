@@ -12,5 +12,6 @@ export default interface Funding {
   active: boolean;
   owner: string;
   slug: string;
+  profilePhotoHash: string;
   registeredAt: string;
 }

@@ -130,13 +130,11 @@ const FundingPreview = ({ ...funding }: Funding) => {
               {funding.active ? "End" : "Reactivate"} Funding
             </Button>
             <IconButton
-              alignItems="center"
-              justifyContent="center"
               aria-label="Edit"
               size="sm"
               variant="ghost"
               onClick={onOpen}
-              leftIcon={<FiShare2 />}
+              icon={<FiShare2 />}
               colorScheme="purple"
             />
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -173,13 +171,11 @@ const FundingPreview = ({ ...funding }: Funding) => {
               </ModalContent>
             </Modal>
             <IconButton
-              alignItems="center"
-              justifyContent="center"
               aria-label="Edit"
               size="sm"
               variant="ghost"
               onClick={() => router.push(`/funding/edit/${funding._id}`)}
-              leftIcon={<FiSettings />}
+              icon={<FiSettings />}
               colorScheme="purple"
             />
           </Flex>
@@ -192,7 +188,15 @@ const FundingPreview = ({ ...funding }: Funding) => {
           <Text fontSize="sm" w={"80%"}>
             {funding.description}
           </Text>
-          <Image w="150px" h="150px" src="https://via.placeholder.com/150" />
+          <Image
+            w="150px"
+            h="150px"
+            rounded="md"
+            src={
+              `https://ipfs.io/ipfs/${funding.profilePhotoHash}` ||
+              "https://via.placeholder.com/150"
+            }
+          />
         </Flex>
       </Stack>
     </AccordionItem>
