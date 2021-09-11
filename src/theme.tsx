@@ -45,8 +45,6 @@ const styles = {
   global: {
     body: {
       fontFamily: "'Open Sans', sans-serif",
-      color: "gray.700",
-      backgroundColor: "#fbfbf8",
     },
   },
 };
@@ -56,6 +54,7 @@ const theme = extendTheme({
     black: "#16161D",
   },
   components,
+
   styles,
   fonts,
   breakpoints,

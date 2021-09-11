@@ -117,7 +117,7 @@ const Funding = ({ funding }: { funding: IFunding }) => {
                 <Button
                   rounded="lg"
                   isDisabled={!amount}
-                  colorScheme="blue"
+                  colorScheme="gray"
                   onClick={donate}
                 >
                   Send funds

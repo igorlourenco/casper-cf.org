@@ -113,7 +113,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
               textTransform="uppercase"
               size="sm"
               variant="ghost"
-              colorScheme="blue"
+              colorScheme="gray"
               leftIcon={<FiUsers />}
             >
               Supporters
@@ -124,7 +124,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
               textTransform="uppercase"
               size="sm"
               variant="ghost"
-              colorScheme="blue"
+              colorScheme="gray"
               leftIcon={<FiCheck />}
             >
               {funding.active ? "End" : "Reactivate"} Funding
@@ -135,7 +135,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
               variant="ghost"
               onClick={onOpen}
               icon={<FiShare2 />}
-              colorScheme="blue"
+              colorScheme="gray"
             />
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
               <ModalOverlay />
@@ -176,7 +176,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
               variant="ghost"
               onClick={() => router.push(`/funding/edit/${funding._id}`)}
               icon={<FiSettings />}
-              colorScheme="blue"
+              colorScheme="gray"
             />
           </Flex>
         </Flex>

@@ -5,8 +5,10 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  useColorMode,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import CasperButton from "./casper-button";
 
 interface MenuProps {
   account: string;
@@ -19,7 +21,13 @@ const Menu = ({ account, deactivate }: MenuProps) => {
   return (
     <ChakraMenu>
       <MenuButton
-        colorScheme="blue"
+        shadow="lg"
+        borderRadius="xl"
+        bgGradient="linear(to-br, blue.500, blue.400)"
+        fontWeight="semibold"
+        color="white"
+        _hover={{ bgGradient: "linear(to-tr, blue.500, blue.400)" }}
+        _active={{ bgGradient: "linear(to-tr, blue.500, blue.400)" }}
         as={Button}
         rightIcon={<ChevronDownIcon />}
       >

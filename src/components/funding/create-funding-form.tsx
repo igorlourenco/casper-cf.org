@@ -24,6 +24,7 @@ import { FiCopy } from "react-icons/fi";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { uploadToIpfs } from "../../utils/ipfs";
+import CasperButton from "../common/casper-button";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -314,16 +315,9 @@ const CreateFundingForm = () => {
           )}
         </FormControl>
         {account ? (
-          <Button
-            shadow="lg"
-            rounded="lg"
-            isLoading={loading}
-            type="submit"
-            colorScheme="blue"
-            transform="uppercases"
-          >
+          <CasperButton isLoading={loading} type="submit" transform="uppercase">
             Create a Funding
-          </Button>
+          </CasperButton>
         ) : (
           <LoginButton />
         )}

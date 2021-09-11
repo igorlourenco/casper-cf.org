@@ -6,7 +6,7 @@ const CreateFunding = () => {
   const router = useRouter();
   return (
     <Button
-      rounded="lg"
+      borderRadius="xl"
       shadow="lg"
       leftIcon={<FiPlus />}
       colorScheme="blue"
