@@ -8,13 +8,25 @@ import Layout from "../components/common/layout";
 import { Image } from "@chakra-ui/image";
 import { Input } from "@chakra-ui/input";
 import { Button } from "@chakra-ui/button";
-import { Link, useToast } from "@chakra-ui/react";
+import {
+  Link,
+  useToast,
+  useColorModeValue,
+  Table,
+  Td,
+  Tr,
+  Tbody,
+  Thead,
+  Th,
+} from "@chakra-ui/react";
 import { FaTwitter, FaDiscord, FaGlobe } from "react-icons/fa";
 import { sendDonation } from "../utils/donate";
+import CasperButton from "../components/common/casper-button";
 
 const Funding = ({ funding }: { funding: IFunding }) => {
   const router = useRouter();
   const toast = useToast();
+
   const [amount, setAmount] = useState<string | null>(null);
 
   if (router.isFallback) return <div>Loading...</div>;
@@ -28,7 +40,7 @@ const Funding = ({ funding }: { funding: IFunding }) => {
         title: "Oops, something got wrong.",
         description: data.error,
         status: "error",
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
       });
     }
@@ -39,6 +51,8 @@ const Funding = ({ funding }: { funding: IFunding }) => {
       <Box w="100%" mt={8}>
         <Flex alignItems="flex-start" gridGap={8}>
           <Image
+            borderRadius="lg"
+            shadow="lg"
             src={
               `https://ipfs.io/ipfs/${funding.profilePhotoHash}` ||
               "https://via.placeholder.com/450"
@@ -49,14 +63,17 @@ const Funding = ({ funding }: { funding: IFunding }) => {
           <Stack spacing={8} w="full">
             <Stack>
               <Heading>{funding.name}</Heading>
-              <Text color="gray.600" fontWeight="medium">
+              <Text
+                color={useColorModeValue("gray.600", "gray.100")}
+                fontWeight="medium"
+              >
                 {funding.description}
               </Text>
               <Flex gridGap={3}>
-                <Badge fontSize="md" colorScheme="blue">
+                <Badge fontSize="sm" colorScheme="blue">
                   {funding.category}
                 </Badge>
-                <Badge fontSize="md" colorScheme="blue">
+                <Badge fontSize="sm" colorScheme="blue">
                   {funding.hostedOn}
                 </Badge>
               </Flex>
@@ -67,7 +84,7 @@ const Funding = ({ funding }: { funding: IFunding }) => {
               alignItems="center"
               w="auto"
             >
-              <Stack>
+              <Flex flexDir="column" gridGap={3}>
                 <Flex alignItems="center" gridGap={2}>
                   <FaTwitter color="#1DA1F2" />
                   <Link
@@ -76,7 +93,7 @@ const Funding = ({ funding }: { funding: IFunding }) => {
                     href={`https://twitter.com/${funding.twitter}`}
                     isExternal
                   >
-                    {funding.twitter}
+                    Follow us
                   </Link>
                 </Flex>
                 <Flex alignItems="center" gridGap={2}>
@@ -87,7 +104,7 @@ const Funding = ({ funding }: { funding: IFunding }) => {
                     href={funding.discord}
                     isExternal
                   >
-                    Discord Community
+                    Join our community
                   </Link>
                 </Flex>
                 <Flex alignItems="center" gridGap={2}>
@@ -98,32 +115,82 @@ const Funding = ({ funding }: { funding: IFunding }) => {
                     href={funding.site}
                     isExternal
                   >
-                    {funding.site}
+                    Visit our website
                   </Link>
                 </Flex>
-              </Stack>
-              <Stack>
-                <Text fontSize="lg" fontWeight="medium">
+              </Flex>
+              <Stack w="50%">
+                <Text fontFamily="Goldman" fontSize="xl" fontWeight="medium">
                   Funded{" "}
                   <Text as="span" fontWeight="bold">
-                    1000/{funding.amountNeeded}
+                    {new Intl.NumberFormat("en-IN").format(1000)}/
+                    {new Intl.NumberFormat("en-IN").format(
+                      Number(funding.amountNeeded)
+                    )}
                   </Text>{" "}
                   FTM
                 </Text>
                 <Input
+                  shadow="md"
                   onChange={(e: any) => setAmount(e.target.value)}
                   placeholder="How many FTM do you want to send?"
                 />
-                <Button
-                  rounded="lg"
-                  isDisabled={!amount}
-                  colorScheme="gray"
-                  onClick={donate}
-                >
+                <CasperButton isDisabled={!amount} onClick={donate}>
                   Send funds
-                </Button>
+                </CasperButton>
               </Stack>
             </Flex>
+            <Stack>
+              <Heading mt={8} size="md">
+                Last Donations
+              </Heading>
+              <Table variant="simple">
+                <Thead>
+                  <Tr>
+                    <Th>From</Th>
+                    <Th>Amount</Th>
+                    <Th>Date/Time</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>inches</Td>
+                    <Td>millimetres (mm)</Td>
+                    <Td isNumeric>25.4</Td>
+                  </Tr>
+                  <Tr>
+                    <Td>feet</Td>
+                    <Td>centimetres (cm)</Td>
+                    <Td isNumeric>30.48</Td>
+                  </Tr>
+                  <Tr>
+                    <Td>yards</Td>
+                    <Td>metres (m)</Td>
+                    <Td isNumeric>0.91444</Td>
+                  </Tr>
+                  <Tr>
+                    <Td>yards</Td>
+                    <Td>metres (m)</Td>
+                    <Td isNumeric>0.91444</Td>
+                  </Tr>
+                  <Tr>
+                    <Td>yards</Td>
+                    <Td>metres (m)</Td>
+                    <Td isNumeric>0.91444</Td>
+                  </Tr>
+                  <Tr>
+                    <Td>yards</Td>
+                    <Td>metres (m)</Td>
+                    <Td isNumeric>0.91444</Td>
+                  </Tr>
+                  <Tr>
+                    <Td>yards</Td>
+                    <Td>metres (m)</Td>
+                    <Td isNumeric>0.91444</Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+            </Stack>
           </Stack>
         </Flex>
       </Box>

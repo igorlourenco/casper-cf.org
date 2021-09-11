@@ -13,12 +13,13 @@ const LoginButton = () => {
   return (
     <Button
       shadow="lg"
-      borderRadius="xl"
+      fontSize="sm"
+      textTransform="uppercase"
       variant="outline"
       colorScheme="blue"
       onClick={login}
     >
-      Start funding here
+      Start funding now
     </Button>
   );
 };

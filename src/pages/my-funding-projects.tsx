@@ -32,18 +32,11 @@ const MyFundings = () => {
     <Layout>
       <Box w="70%" mt={8}>
         <Flex alignItems="center" justifyContent="space-between">
-          <Heading>Your fundings</Heading>
+          <Heading>Your funding projects</Heading>
           <CreateFunding />
         </Flex>
         {fundings.length > 0 ? (
-          <Stack
-            spacing={4}
-            mt={8}
-            bg="gray.100"
-            borderRadius="md"
-            shadow="md"
-            p="4"
-          >
+          <Stack spacing={4} mt={8} shadow="lg" p="4">
             <FundingList fundings={fundings} />
           </Stack>
         ) : (

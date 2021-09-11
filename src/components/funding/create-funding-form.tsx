@@ -25,6 +25,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { uploadToIpfs } from "../../utils/ipfs";
 import CasperButton from "../common/casper-button";
+import InputMask from "react-input-mask";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -68,22 +69,18 @@ const CreateFundingForm = () => {
     return result;
   }
 
-  const copyUrlToClipboard = () => {
-    async () => {
-      await navigator.clipboard.writeText(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/${slugUrl}`
-      );
+  const copyUrlToClipboard = async () => {
+    await navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/${slugUrl}`
+    );
 
-      toast({
-        position: "bottom",
-        duration: 3000,
-        render: () => (
-          <Box color="white" p={3} bg="blue.400" borderRadius="sm">
-            <Text fontWeight="medium">URL Copied to your clipboard!</Text>
-          </Box>
-        ),
-      });
-    };
+    toast({
+      title: "Success",
+      description: "URL copied to your clipboard",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
   };
 
   const onSubmit = async (data) => {
@@ -105,7 +102,7 @@ const CreateFundingForm = () => {
     });
 
     setLoading(false);
-    router.push("/my-fundings");
+    router.push("/my-funding-projects");
   };
 
   return (
@@ -291,7 +288,7 @@ const CreateFundingForm = () => {
             name="amountNeeded"
             {...register("amountNeeded")}
             type="number"
-            placeholder="10,000"
+            placeholder="10000"
           />
         </FormControl>
         <FormControl id="slug">

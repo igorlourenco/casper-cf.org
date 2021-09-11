@@ -1,20 +1,16 @@
-import { Button } from "@chakra-ui/button";
 import { useRouter } from "next/router";
 import { FiPlus } from "react-icons/fi";
+import CasperButton from "../common/casper-button";
 
 const CreateFunding = () => {
   const router = useRouter();
   return (
-    <Button
-      borderRadius="xl"
-      shadow="lg"
+    <CasperButton
       leftIcon={<FiPlus />}
-      colorScheme="blue"
-      textDecoration="none"
       onClick={() => router.push("/funding/create")}
     >
       Create funding
-    </Button>
+    </CasperButton>
   );
 };
 

@@ -31,7 +31,8 @@ const components = {
   },
   Heading: {
     baseStyle: {
-      fontFamily: "'Merriweather', sans-serif",
+      fontFamily: "'Goldman', sans-serif",
+      letterSpacing: "wider",
     },
   },
   FormLabel: {
@@ -44,7 +45,7 @@ const components = {
 const styles = {
   global: {
     body: {
-      fontFamily: "'Open Sans', sans-serif",
+      fontFamily: "'Nunito', sans-serif",
     },
   },
 };

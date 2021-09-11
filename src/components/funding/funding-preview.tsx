@@ -49,13 +49,11 @@ const FundingPreview = ({ ...funding }: Funding) => {
     await navigator.clipboard.writeText(url);
 
     toast({
-      position: "bottom",
+      title: "Success",
+      description: "URL copied to your clipboard",
+      status: "success",
       duration: 3000,
-      render: () => (
-        <Box color="white" p={3} bg="blue.400" borderRadius="sm">
-          <Text fontWeight="medium">URL Copied to your clipboard!</Text>
-        </Box>
-      ),
+      isClosable: true,
     });
   };
 
@@ -74,7 +72,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
     const responseData = await response.json();
 
     setLoading(false);
-    router.push("/my-fundings");
+    router.push("/my-funding-projects");
   };
 
   return (
@@ -86,19 +84,9 @@ const FundingPreview = ({ ...funding }: Funding) => {
         alignItems="center"
         justifyContent="space-between"
       >
-        <Text
-          fontWeight="semibold"
-          color={funding.active ? "gray.700" : "gray.400"}
-        >
-          {funding.name}
-        </Text>
+        <Text fontWeight="semibold">{funding.name}</Text>
         <Flex alignItems="center" gridGap={3}>
-          <Text
-            fontWeight="medium"
-            color={funding.active ? "gray.700" : "gray.400"}
-          >
-            10/{funding.amountNeeded} FTM
-          </Text>
+          <Text fontWeight="medium">10/{funding.amountNeeded} FTM</Text>
 
           <AccordionIcon />
         </Flex>
@@ -113,7 +101,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
               textTransform="uppercase"
               size="sm"
               variant="ghost"
-              colorScheme="gray"
+              colorScheme="blue"
               leftIcon={<FiUsers />}
             >
               Supporters
@@ -124,7 +112,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
               textTransform="uppercase"
               size="sm"
               variant="ghost"
-              colorScheme="gray"
+              colorScheme="blue"
               leftIcon={<FiCheck />}
             >
               {funding.active ? "End" : "Reactivate"} Funding
@@ -135,7 +123,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
               variant="ghost"
               onClick={onOpen}
               icon={<FiShare2 />}
-              colorScheme="gray"
+              colorScheme="blue"
             />
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
               <ModalOverlay />

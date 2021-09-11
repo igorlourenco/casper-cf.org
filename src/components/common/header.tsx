@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/layout";
+import { Flex, Image } from "@chakra-ui/react";
 import { useEthers } from "@usedapp/core";
 
 import LoginButton from "./login-button";
@@ -9,7 +9,7 @@ const Header = () => {
 
   return (
     <Flex alignItems="center" justifyContent="space-between">
-      <Text>FTM Funding</Text>
+      <Image src="/images/logo.svg" alt="logo" height="50px" />
       {account ? (
         <Menu deactivate={deactivate} account={account} />
       ) : (

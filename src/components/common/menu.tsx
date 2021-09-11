@@ -8,7 +8,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import CasperButton from "./casper-button";
+import { FiLogOut, FiHeart, FiLayers, FiSun, FiMoon } from "react-icons/fi";
 
 interface MenuProps {
   account: string;
@@ -17,12 +17,12 @@ interface MenuProps {
 
 const Menu = ({ account, deactivate }: MenuProps) => {
   const router = useRouter();
+  const { toggleColorMode, colorMode } = useColorMode();
 
   return (
     <ChakraMenu>
       <MenuButton
         shadow="lg"
-        borderRadius="xl"
         bgGradient="linear(to-br, blue.500, blue.400)"
         fontWeight="semibold"
         color="white"
@@ -35,13 +35,30 @@ const Menu = ({ account, deactivate }: MenuProps) => {
         {account.slice(account.length - 4, account.length)}
       </MenuButton>
       <MenuList>
-        <MenuItem onClick={() => router.push("/my-fundings")}>
-          My Fundings
+        <MenuItem
+          icon={<FiHeart />}
+          onClick={() => router.push("/funding/create")}
+        >
+          Start Funding
         </MenuItem>
-        <MenuItem onClick={() => router.push("/funding/create")}>
-          Create Funding
+        <MenuItem
+          icon={<FiLayers />}
+          onClick={() => router.push("/my-funding-projects")}
+        >
+          My Funding Projects
         </MenuItem>
-        <MenuItem size="sm" onClick={() => deactivate()}>
+
+        <MenuItem
+          icon={colorMode === "light" ? <FiMoon /> : <FiSun />}
+          onClick={toggleColorMode}
+        >
+          Change to {colorMode === "light" ? "dark" : "light"} mode
+        </MenuItem>
+        <MenuItem
+          icon={<FiLogOut />}
+          fontSize="sm"
+          onClick={() => deactivate()}
+        >
           Disconnect
         </MenuItem>
       </MenuList>

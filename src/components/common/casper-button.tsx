@@ -4,7 +4,6 @@ const CasperButton = (props: ButtonProps) => {
   return (
     <Button
       shadow="lg"
-      borderRadius="xl"
       bgGradient="linear(to-br, blue.500, blue.400)"
       fontWeight="semibold"
       color="white"
