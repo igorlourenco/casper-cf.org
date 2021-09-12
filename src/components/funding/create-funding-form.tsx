@@ -106,7 +106,7 @@ const CreateFundingForm = () => {
   };
 
   return (
-    <Box w="70%" mt={8}>
+    <Box w={["100%", "100%", "100%", "70%"]} mt={8}>
       <Stack spacing={6} as="form" onSubmit={handleSubmit(onSubmit)}>
         <Heading size="lg">
           Register your project to receive community funding

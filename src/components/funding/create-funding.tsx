@@ -9,7 +9,7 @@ const CreateFunding = () => {
       leftIcon={<FiPlus />}
       onClick={() => router.push("/funding/create")}
     >
-      Create funding
+      Create new
     </CasperButton>
   );
 };

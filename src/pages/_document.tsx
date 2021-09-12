@@ -16,6 +16,7 @@ export default class Document extends NextDocument {
             href="https://fonts.googleapis.com/css2?family=Goldman:wght@300;400;700&display=swap"
             rel="stylesheet"
           />
+          <link rel="shortcut icon" href="/images/logo.svg" />
         </Head>
         <body>
           <ColorModeScript initialColorMode="dark" />

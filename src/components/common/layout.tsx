@@ -5,8 +5,8 @@ import Header from "./header";
 const Layout = ({ children, ...props }: StackProps) => {
   return (
     <>
-      <Stack py="2" px="16" {...props}>
-        <Header />
+      <Header />
+      <Stack px="16" {...props}>
         <Stack alignItems="center">{children}</Stack>
       </Stack>
       <Footer />

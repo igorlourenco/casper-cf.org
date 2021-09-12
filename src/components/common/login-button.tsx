@@ -15,11 +15,13 @@ const LoginButton = () => {
       shadow="lg"
       fontSize="sm"
       textTransform="uppercase"
+      fontFamily="Goldman"
+      fontWeight="semibold"
       variant="outline"
       colorScheme="blue"
       onClick={login}
     >
-      Start funding now
+      Login to start funding
     </Button>
   );
 };
