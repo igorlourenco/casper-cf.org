@@ -32,7 +32,7 @@ const components = {
   Heading: {
     baseStyle: {
       fontFamily: "'Goldman', sans-serif",
-      letterSpacing: "wider",
+      // letterSpacing: "wider",
     },
   },
   FormLabel: {

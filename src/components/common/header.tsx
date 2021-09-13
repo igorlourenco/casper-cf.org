@@ -1,4 +1,4 @@
-import { Flex, Image } from "@chakra-ui/react";
+import { Flex, Heading, useColorModeValue } from "@chakra-ui/react";
 import { useEthers } from "@usedapp/core";
 import { useRouter } from "next/router";
 import LoginButton from "./login-button";
@@ -16,17 +16,23 @@ const Header = () => {
       px={16}
       justifyContent="space-between"
     >
-      <Image
-        onClick={() => router.push("/")}
-        src="/images/logo.svg"
+      <Heading
+        bgGradient={useColorModeValue(
+          "linear(to-l, blue.600, blue.800)",
+          "linear(to-r, blue.200, blue.400)"
+        )}
+        bgClip="text"
+        size="lg"
         cursor="pointer"
-        alt="logo"
-        height="50px"
-      />
+        onClick={() => router.push("/")}
+      >
+        Casper Fundraising
+      </Heading>
+
       {account ? (
         <Menu deactivate={deactivate} account={account} />
       ) : (
-        <LoginButton />
+        <LoginButton>Login to start funding</LoginButton>
       )}
     </Flex>
   );

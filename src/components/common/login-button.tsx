@@ -1,8 +1,9 @@
 import { useEthers } from "@usedapp/core";
-import { Button } from "@chakra-ui/button";
+import { Button, ButtonProps } from "@chakra-ui/button";
 import { useRouter } from "next/router";
+import CasperButton from "./casper-button";
 
-const LoginButton = () => {
+const LoginButton = (props: ButtonProps) => {
   const { activateBrowserWallet } = useEthers();
   const router = useRouter();
 
@@ -11,18 +12,9 @@ const LoginButton = () => {
     router.push("/funding/create");
   };
   return (
-    <Button
-      shadow="lg"
-      fontSize="sm"
-      textTransform="uppercase"
-      fontFamily="Goldman"
-      fontWeight="semibold"
-      variant="outline"
-      colorScheme="blue"
-      onClick={login}
-    >
-      Login to start funding
-    </Button>
+    <CasperButton onClick={login} {...props}>
+      {props.children}
+    </CasperButton>
   );
 };
 

@@ -316,7 +316,7 @@ const CreateFundingForm = () => {
             Create a Funding
           </CasperButton>
         ) : (
-          <LoginButton />
+          <LoginButton>Login to start funding</LoginButton>
         )}
       </Stack>
     </Box>

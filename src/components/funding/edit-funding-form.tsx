@@ -264,7 +264,7 @@ const EditFundingForm = ({ ...funding }: any) => {
             Update funding
           </Button>
         ) : (
-          <LoginButton />
+          <LoginButton>Login to start funding</LoginButton>
         )}
       </Stack>
     </Box>
