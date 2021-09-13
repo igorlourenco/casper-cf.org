@@ -39,15 +39,15 @@ const Menu = ({ account, deactivate }: MenuProps) => {
       <MenuList>
         <MenuItem
           icon={<FiHeart />}
-          onClick={() => router.push("/funding/create")}
+          onClick={() => router.push("/fundraising/create")}
         >
           Create Funding Project
         </MenuItem>
         <MenuItem
           icon={<FiLayers />}
-          onClick={() => router.push("/my-funding-projects")}
+          onClick={() => router.push("/my-fundraising-projects")}
         >
-          My Funding Projects
+          My Fundraising Projects
         </MenuItem>
 
         <MenuItem

@@ -9,7 +9,7 @@ const LoginButton = (props: ButtonProps) => {
 
   const login = async () => {
     await activateBrowserWallet();
-    router.push("/funding/create");
+    router.push("/fundraising/create");
   };
   return (
     <CasperButton onClick={login} {...props}>

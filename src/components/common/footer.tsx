@@ -4,7 +4,12 @@ import { FaTwitter, FaDiscord } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <Flex px={16} py={6} alignItems="center" justifyContent="space-between">
+    <Flex
+      px={[6, 6, 8, 16]}
+      py={6}
+      alignItems="center"
+      justifyContent="space-between"
+    >
       <Stack spacing={0}>
         <Heading size="md">Casper Fundraising</Heading>
         <Text size="sm" fontWeight="semibold">

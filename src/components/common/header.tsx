@@ -13,7 +13,7 @@ const Header = () => {
       alignItems="center"
       shadow="sm"
       py={2}
-      px={16}
+      px={[6, 6, 8, 16]}
       justifyContent="space-between"
     >
       <Heading

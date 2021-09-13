@@ -1,4 +1,4 @@
-const title = "Casper Community Funding";
+const title = "Casper Fundraising";
 const description =
   "Ask for community support to your blockchain-based project. Raise funds and support builders with $FTM.";
 

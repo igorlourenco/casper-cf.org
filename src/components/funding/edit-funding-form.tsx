@@ -73,7 +73,7 @@ const EditFundingForm = ({ ...funding }: any) => {
     const responseData = await response.json();
 
     setLoading(false);
-    router.push("/my-funding-projects");
+    router.push("/my-fundraising-projects");
   };
 
   if (!funding || !account) return null;

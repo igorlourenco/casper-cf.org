@@ -29,7 +29,7 @@ const Index = () => {
             fontSize={{ base: "3xl", sm: "4xl", md: "6xl" }}
             lineHeight={"110%"}
           >
-            Fundraising{" "}
+            Crypto-based fundraising{" "}
             <Text as={"span"} color={useColorModeValue("blue.600", "blue.300")}>
               made easy
             </Text>

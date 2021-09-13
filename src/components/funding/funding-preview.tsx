@@ -72,7 +72,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
     const responseData = await response.json();
 
     setLoading(false);
-    router.push("/my-funding-projects");
+    router.push("/my-fundraising-projects");
   };
 
   return (
@@ -115,7 +115,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
               colorScheme="blue"
               leftIcon={<FiCheck />}
             >
-              {funding.active ? "End" : "Reactivate"} Funding
+              {funding.active ? "End" : "Reactivate"} Fundraising
             </Button>
             <IconButton
               aria-label="Edit"
@@ -162,7 +162,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
               aria-label="Edit"
               size="sm"
               variant="ghost"
-              onClick={() => router.push(`/funding/edit/${funding._id}`)}
+              onClick={() => router.push(`/fundraising/edit/${funding._id}`)}
               icon={<FiSettings />}
               colorScheme="gray"
             />

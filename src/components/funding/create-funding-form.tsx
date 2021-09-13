@@ -86,7 +86,7 @@ const CreateFundingForm = () => {
   const onSubmit = async (data) => {
     setLoading(true);
 
-    await fetch("/api/funding/create", {
+    await fetch("/api/fundraising/create", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -102,7 +102,7 @@ const CreateFundingForm = () => {
     });
 
     setLoading(false);
-    router.push("/my-funding-projects");
+    router.push("/my-fundraising-projects");
   };
 
   return (
@@ -293,7 +293,7 @@ const CreateFundingForm = () => {
         </FormControl>
         <FormControl id="slug">
           <FormLabel>
-            Share your funding project with your network using this link
+            Share your project with your community using this link
           </FormLabel>
           {slugUrl && (
             <Flex alignItems="center" gridGap={3}>
@@ -313,10 +313,10 @@ const CreateFundingForm = () => {
         </FormControl>
         {account ? (
           <CasperButton isLoading={loading} type="submit" transform="uppercase">
-            Create a Funding
+            Create a Fundraising project
           </CasperButton>
         ) : (
-          <LoginButton>Login to start funding</LoginButton>
+          <LoginButton>Login to start</LoginButton>
         )}
       </Stack>
     </Box>
