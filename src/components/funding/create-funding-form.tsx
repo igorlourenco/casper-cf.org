@@ -25,7 +25,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { uploadToIpfs } from "../../utils/ipfs";
 import CasperButton from "../common/casper-button";
-import InputMask from "react-input-mask";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -50,6 +49,7 @@ const CreateFundingForm = () => {
   const [loading, setLoading] = useState(false);
   const [slugUrl, setSlugUrl] = useState<string | null>(null);
   const [profilePhotoHash, setProfilePhotoHash] = useState(null);
+  const [amount, setAmount] = useState(0);
 
   async function onProfilePhotoChange(e) {
     const file = e.target.files[0];
@@ -226,6 +226,7 @@ const CreateFundingForm = () => {
             <option value="NFT Collection">NFT Collection</option>
             <option value="NFT Marketplace">NFT Marketplace</option>
             <option value="Game">Game</option>
+            <option value="For community">For community</option>
           </Select>
         </FormControl>
         <FormControl id="hostedOn">
@@ -243,6 +244,7 @@ const CreateFundingForm = () => {
             <option value="Avalanche">Avalanche</option>
             <option value="Cardano">Cardano</option>
             <option value="Solana">Solana</option>
+            <option value="Binance Smart Chain">Binance Smart Chain</option>
           </Select>
         </FormControl>
         <Stack spacing={0} shadow="sm">
@@ -259,7 +261,7 @@ const CreateFundingForm = () => {
                 {...register("twitter")}
                 borderRadius="none"
                 borderTopRadius="md"
-                placeholder="Only the handle (e.g. _igorlourenco)"
+                placeholder="Only the handle (e.g. CasperFunding)"
               />
             </InputGroup>
             <InputGroup>
@@ -268,11 +270,11 @@ const CreateFundingForm = () => {
                 children={<FaDiscord color="#5865F2" />}
               />
               <Input
-                type="text"
+                type="url"
                 name="discord"
                 {...register("discord")}
                 borderRadius="none"
-                placeholder="Community invite link (e.g. _igorlourenco)"
+                placeholder="Community invite link (e.g. CasperFunding)"
               />
             </InputGroup>
             <InputGroup>
@@ -281,11 +283,11 @@ const CreateFundingForm = () => {
                 children={<FaGlobe color="gray.600" />}
               />
               <Input
-                name="site"
+                name="url"
                 {...register("site")}
                 type="text"
                 borderRadius="none"
-                placeholder="https://site.com.br"
+                placeholder="https://casper-cf.org"
                 borderBottomRadius="md"
               />
             </InputGroup>
@@ -298,9 +300,16 @@ const CreateFundingForm = () => {
             rounded="lg"
             name="amountNeeded"
             {...register("amountNeeded")}
+            onChange={(e: any) => setAmount(e.target.value)}
             type="number"
             placeholder="10000"
           />
+          {amount > 0 && (
+            <Text>
+              You will receive {(amount * 99) / 100} FTM (1% for platform
+              maintenance)
+            </Text>
+          )}
         </FormControl>
         <FormControl id="recipient">
           <FormLabel>Donations will be sent to your address</FormLabel>
@@ -330,7 +339,7 @@ const CreateFundingForm = () => {
         </FormControl>
         {account ? (
           <CasperButton isLoading={loading} type="submit" transform="uppercase">
-            Create a Fundraising project
+            Create Fundraising project
           </CasperButton>
         ) : (
           <LoginButton>Login to start</LoginButton>

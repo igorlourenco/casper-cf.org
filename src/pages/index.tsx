@@ -75,15 +75,12 @@ const Index = () => {
             </Text>
           </Heading>
           <Text color={"gray.500"} maxW={"3xl"}>
-            Let people help your project. Create a fundraising and share it with
-            your community so they can donate to Fantom ($FTM) and help your
+            Let people help with your project. Create a fundraiser and share it
+            with your community so they can donate Fantom ($FTM) and help your
             project grow.
           </Text>
           <Stack spacing={6} direction={"row"}>
             <LoginButton>Get started</LoginButton>
-            <Button rounded="lg" px={6}>
-              See projects
-            </Button>
           </Stack>
         </Stack>
       </Container>

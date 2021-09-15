@@ -138,14 +138,7 @@ const Funding = ({ funding }: { funding: IFunding }) => {
                       textDecoration="underline"
                       cursor="pointer"
                       fontWeight="semibold"
-                      onClick={() =>
-                        window.open(
-                          `https://${funding.discord
-                            .replaceAll("https:// ", "")
-                            .replaceAll("http://", "")}`,
-                          "_blank"
-                        )
-                      }
+                      onClick={() => window.open(funding.discord, "_blank")}
                       isExternal
                     >
                       Join our community
@@ -160,14 +153,7 @@ const Funding = ({ funding }: { funding: IFunding }) => {
                       textDecoration="underline"
                       cursor="pointer"
                       fontWeight="semibold"
-                      onClick={() =>
-                        window.open(
-                          `https://${funding.site
-                            .replaceAll("https:// ", "")
-                            .replaceAll("http://", "")}`,
-                          "_blank"
-                        )
-                      }
+                      onClick={() => window.open(funding.site, "_blank")}
                       isExternal
                     >
                       Visit our website

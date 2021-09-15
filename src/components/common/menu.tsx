@@ -6,6 +6,7 @@ import {
   MenuList,
   MenuItem,
   useColorMode,
+  Text,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
@@ -16,6 +17,7 @@ import {
   FiMoon,
   FiBox,
 } from "react-icons/fi";
+import { useEthers } from "@usedapp/core";
 
 interface MenuProps {
   account: string;

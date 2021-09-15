@@ -1,4 +1,10 @@
-import { Flex, Heading, useColorModeValue, Image } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  useColorModeValue,
+  Image,
+  Text,
+} from "@chakra-ui/react";
 import { useEthers } from "@usedapp/core";
 import { useRouter } from "next/router";
 import LoginButton from "./login-button";
@@ -12,7 +18,7 @@ const Header = () => {
     <Flex
       alignItems="center"
       shadow="sm"
-      py={2}
+      py={3}
       px={[6, 6, 8, 16]}
       justifyContent="space-between"
     >
