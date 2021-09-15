@@ -34,14 +34,14 @@ const Funding = ({ funding }: { funding: IFunding }) => {
 
   useEffect(() => {
     async function fetchData() {
-      const projectId = funding._id.toString().replaceAll('"', "");
+      const projectId = funding?._id.toString().replaceAll('"', "");
 
       const { donations, donated } = await getDonators(projectId);
       setDonations(donations);
       setFunded(donated);
     }
     fetchData();
-  }, [funding._id]);
+  }, [funding?._id]);
 
   const [amount, setAmount] = useState<string | null>(null);
 
