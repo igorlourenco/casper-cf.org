@@ -45,7 +45,7 @@ const Index = () => {
 
     if (data.error) {
       toast({
-        title: "Oops, something got wrong.",
+        title: "Oops, something went wrong.",
         description: data.error,
         status: "error",
         duration: 3000,
