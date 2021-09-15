@@ -35,7 +35,6 @@ const schema = yup.object().shape({
   twitter: yup.string(),
   discord: yup.string(),
   site: yup.string(),
-  recipientAddress: yup.string().required(),
   amountNeeded: yup.string().required(),
 });
 
@@ -86,7 +85,7 @@ const CreateFundingForm = () => {
   const onSubmit = async (data) => {
     setLoading(true);
 
-    await fetch("/api/fundraising/create", {
+    await fetch("/api/funding/create", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -95,12 +94,20 @@ const CreateFundingForm = () => {
       body: JSON.stringify({
         ...data,
         profilePhotoHash,
+        recipientAddress: account,
         active: true,
         owner: account,
         slug: slugUrl,
       }),
     });
 
+    toast({
+      title: "Success",
+      description: "Fundraising project created.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
     setLoading(false);
     router.push("/my-fundraising-projects");
   };
@@ -204,8 +211,9 @@ const CreateFundingForm = () => {
             placeholder="Project category"
           >
             <option value="DeFi">DeFi</option>
-            <option value="NFT">NFT</option>
-            <option value="Social">Social</option>
+            <option value="NFT Collection">NFT Collection</option>
+            <option value="NFT Marketplace">NFT Marketplace</option>
+            <option value="Game">Game</option>
           </Select>
         </FormControl>
         <FormControl id="hostedOn">
@@ -218,10 +226,11 @@ const CreateFundingForm = () => {
             placeholder="Where is your project hosted?"
           >
             <option value="Fantom">Fantom</option>
-            <option value="Other blockchain">Other blockchain</option>
-            <option value="It is not a blockchain-based project">
-              It is not a blockchain-based project
-            </option>
+            <option value="Ethereum">Ethereum</option>
+            <option value="Polygon">Polygon</option>
+            <option value="Avalanche">Avalanche</option>
+            <option value="Cardano">Cardano</option>
+            <option value="Solana">Solana</option>
           </Select>
         </FormControl>
         <Stack spacing={0} shadow="sm">
@@ -270,16 +279,6 @@ const CreateFundingForm = () => {
             </InputGroup>
           </FormControl>
         </Stack>
-        <FormControl id="recipient">
-          <FormLabel>Receiver Address</FormLabel>
-          <Input
-            shadow="sm"
-            rounded="lg"
-            name="recipientAddress"
-            {...register("recipientAddress")}
-            placeholder="0x123ABCLOVEMYJOB1"
-          />
-        </FormControl>
         <FormControl id="amount-needed">
           <FormLabel>How many FTM do your project need?</FormLabel>
           <Input
@@ -290,6 +289,12 @@ const CreateFundingForm = () => {
             type="number"
             placeholder="10000"
           />
+        </FormControl>
+        <FormControl id="recipient">
+          <FormLabel>Donations will be sent to your address</FormLabel>
+          <Text fontWeight="semibold" color="gray.500">
+            {account}
+          </Text>
         </FormControl>
         <FormControl id="slug">
           <FormLabel>

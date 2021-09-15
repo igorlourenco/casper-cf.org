@@ -7,7 +7,6 @@ import { Text, Flex, Box, Stack, Heading, Badge } from "@chakra-ui/layout";
 import Layout from "../components/common/layout";
 import { Image } from "@chakra-ui/image";
 import { Input } from "@chakra-ui/input";
-import { Button } from "@chakra-ui/button";
 import {
   Link,
   useToast,
@@ -136,7 +135,7 @@ const Funding = ({ funding }: { funding: IFunding }) => {
                   placeholder="How many FTM do you want to send?"
                 />
                 <CasperButton isDisabled={!amount} onClick={donate}>
-                  Send funds
+                  donate
                 </CasperButton>
               </Stack>
             </Flex>

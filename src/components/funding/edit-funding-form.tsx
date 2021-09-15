@@ -30,7 +30,6 @@ const schema = yup.object().shape({
   twitter: yup.string(),
   discord: yup.string(),
   site: yup.string(),
-  recipientAddress: yup.string().required(),
   amountNeeded: yup.string().required(),
 });
 
@@ -166,8 +165,9 @@ const EditFundingForm = ({ ...funding }: any) => {
             placeholder="Project category"
           >
             <option value="DeFi">DeFi</option>
-            <option value="NFT">NFT</option>
-            <option value="Social">Social</option>
+            <option value="NFT Collection">NFT Collection</option>
+            <option value="NFT Marketplace">NFT Marketplace</option>
+            <option value="Game">Game</option>
           </Select>
         </FormControl>
         <FormControl>
@@ -179,10 +179,11 @@ const EditFundingForm = ({ ...funding }: any) => {
             placeholder="Where is your project hosted?"
           >
             <option value="Fantom">Fantom</option>
-            <option value="Other blockchain">Other blockchain</option>
-            <option value="It is not a blockchain-based project">
-              It'= is not a blockchain-based project
-            </option>
+            <option value="Ethereum">Ethereum</option>
+            <option value="Polygon">Polygon</option>
+            <option value="Avalanche">Avalanche</option>
+            <option value="Cardano">Cardano</option>
+            <option value="Solana">Solana</option>
           </Select>
         </FormControl>
         <Stack spacing={0}>
@@ -234,15 +235,6 @@ const EditFundingForm = ({ ...funding }: any) => {
             </InputGroup>
           </FormControl>
         </Stack>
-        <FormControl>
-          <FormLabel>Donation Recipient Address</FormLabel>
-          <Input
-            defaultValue={funding.recipientAddress}
-            name="recipientAddress"
-            {...register("recipientAddress", { required: true })}
-            placeholder="0x123ABCLOVEMYJOB1"
-          />
-        </FormControl>
         <FormControl>
           <FormLabel>How many FTM do you need?</FormLabel>
           <Input
