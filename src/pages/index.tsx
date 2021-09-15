@@ -151,7 +151,6 @@ const Index = () => {
                   />
                   <CasperButton
                     size="sm"
-                    isDisabled={!amount}
                     onClick={() => donate(project.owner, project._id)}
                   >
                     donate

@@ -10,7 +10,7 @@ import {
   AccordionButton,
   AccordionIcon,
 } from "@chakra-ui/accordion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Image,
   Modal,
@@ -24,12 +24,24 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { FaDiscord, FaTwitter } from "react-icons/fa";
+import { getDonators } from "../../utils/donate";
 
 const FundingPreview = ({ ...funding }: Funding) => {
   const router = useRouter();
   const toast = useToast();
   const [loading, setLoading] = useState(false);
+  const [funded, setFunded] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  useEffect(() => {
+    async function fetchData() {
+      const projectId = funding._id.toString().replaceAll('"', "");
+
+      const { donated } = await getDonators(projectId);
+      setFunded(donated);
+    }
+    fetchData();
+  }, [funding._id]);
 
   var url = `${process.env.NEXT_PUBLIC_BASE_URL}/${funding.slug}`;
   var text = "Replace this with your text";
@@ -86,7 +98,13 @@ const FundingPreview = ({ ...funding }: Funding) => {
       >
         <Text fontWeight="semibold">{funding.name}</Text>
         <Flex alignItems="center" gridGap={3}>
-          <Text fontWeight="medium">10/{funding.amountNeeded} FTM</Text>
+          <Text fontWeight="medium">
+            {new Intl.NumberFormat("en-IN").format(funded)}/
+            {new Intl.NumberFormat("en-IN").format(
+              Number(funding.amountNeeded)
+            )}{" "}
+            FTM
+          </Text>
 
           <AccordionIcon />
         </Flex>
@@ -102,6 +120,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
               size="sm"
               variant="ghost"
               colorScheme="blue"
+              onClick={() => router.push(`/supporters/${funding.slug}`)}
               leftIcon={<FiUsers />}
             >
               Supporters
@@ -128,7 +147,7 @@ const FundingPreview = ({ ...funding }: Funding) => {
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
               <ModalOverlay />
               <ModalContent>
-                <ModalHeader>Share</ModalHeader>
+                <ModalHeader>Share {funding.name}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody gridGap={4} padding={6}>
                   <Flex
@@ -136,36 +155,36 @@ const FundingPreview = ({ ...funding }: Funding) => {
                     justifyContent="space-around"
                     gridGap={2}
                   >
-                    <FaTwitter
-                      size={48}
-                      cursor="pointer"
-                      onClick={shareOnTwitter}
-                      color="#1DA1F2"
-                    />
-                    <FaDiscord
-                      size={48}
-                      cursor="pointer"
-                      onClick={() => alert("a")}
-                      color="#5865F2"
-                    />
-                    <FiCopy
-                      size={48}
-                      cursor="pointer"
-                      onClick={copyUrlToClipboard}
-                      color="gray.500"
-                    />
+                    <Stack alignItems="center">
+                      <FaTwitter
+                        size={48}
+                        cursor="pointer"
+                        onClick={shareOnTwitter}
+                        color="#1DA1F2"
+                      />
+                      <Text>Share on Twitter</Text>
+                    </Stack>
+                    <Stack alignItems="center">
+                      <FiCopy
+                        size={48}
+                        cursor="pointer"
+                        onClick={copyUrlToClipboard}
+                        color="gray.500"
+                      />
+                      <Text>Copy link</Text>
+                    </Stack>
                   </Flex>
                 </ModalBody>
               </ModalContent>
             </Modal>
-            <IconButton
+            {/* <IconButton
               aria-label="Edit"
               size="sm"
               variant="ghost"
               onClick={() => router.push(`/fundraising/edit/${funding._id}`)}
               icon={<FiSettings />}
               colorScheme="gray"
-            />
+            /> */}
           </Flex>
         </Flex>
         <Flex

@@ -6,7 +6,7 @@ const Layout = ({ children, ...props }: StackProps) => {
   return (
     <>
       <Header />
-      <Stack px="16" {...props}>
+      <Stack px={16} {...props} pb={24}>
         <Stack alignItems="center">{children}</Stack>
       </Stack>
       <Footer />

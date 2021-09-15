@@ -27,9 +27,9 @@ export default async (request: NextApiRequest, response: NextApiResponse) => {
   const collection = db.collection("fundings");
 
   const data = await collection
-    .find({})
+    .find({ active: true })
     .sort({ active: -1, registeredAt: -1 })
-    .limit(10);
+    .limit(20);
 
   const fundings = await data.toArray();
 

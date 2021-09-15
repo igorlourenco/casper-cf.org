@@ -8,7 +8,14 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { FiLogOut, FiHeart, FiLayers, FiSun, FiMoon } from "react-icons/fi";
+import {
+  FiLogOut,
+  FiHeart,
+  FiLayers,
+  FiSun,
+  FiMoon,
+  FiBox,
+} from "react-icons/fi";
 
 interface MenuProps {
   account: string;
@@ -55,6 +62,17 @@ const Menu = ({ account, deactivate }: MenuProps) => {
           onClick={toggleColorMode}
         >
           Change to {colorMode === "light" ? "dark" : "light"} mode
+        </MenuItem>
+        <MenuItem
+          icon={<FiBox />}
+          onClick={() =>
+            window.open(
+              "https://indbc0lvsaq.typeform.com/to/jkg6RbYG",
+              "_blank"
+            )
+          }
+        >
+          Feedback
         </MenuItem>
         <MenuItem
           icon={<FiLogOut />}

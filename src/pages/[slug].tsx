@@ -27,6 +27,8 @@ const Funding = ({ funding }: { funding: IFunding }) => {
   const router = useRouter();
   const toast = useToast();
 
+  console.log(funding);
+
   const [donations, setDonations] = useState([]);
   const [funded, setFunded] = useState(0);
 
@@ -63,7 +65,11 @@ const Funding = ({ funding }: { funding: IFunding }) => {
   return (
     <Layout>
       <Box w="100%" mt={8}>
-        <Flex alignItems="flex-start" gridGap={8}>
+        <Flex
+          alignItems="flex-start"
+          gridGap={8}
+          flexDir={["column", "column", "row", "row"]}
+        >
           <Image
             borderRadius="lg"
             shadow="lg"
@@ -71,8 +77,8 @@ const Funding = ({ funding }: { funding: IFunding }) => {
               `https://ipfs.io/ipfs/${funding.profilePhotoHash}` ||
               "https://via.placeholder.com/450"
             }
-            w="450px"
-            h="450px"
+            w={["100%", "100%", "450px", "450px"]}
+            h={["100%", "100%", "450px", "450px"]}
           />
           <Stack spacing={8} w="full">
             <Stack>
@@ -97,43 +103,79 @@ const Funding = ({ funding }: { funding: IFunding }) => {
               justifyContent="space-between"
               alignItems="center"
               w="auto"
+              flexDir={["column", "column", "row", "row"]}
             >
-              <Flex flexDir="column" gridGap={3}>
-                <Flex alignItems="center" gridGap={2}>
-                  <FaTwitter color="#1DA1F2" />
-                  <Link
-                    color="gray.500"
-                    fontWeight="semibold"
-                    href={`https://twitter.com/${funding.twitter}`}
-                    isExternal
-                  >
-                    Follow us
-                  </Link>
-                </Flex>
-                <Flex alignItems="center" gridGap={2}>
-                  <FaDiscord color="#5865F2" />
-                  <Link
-                    color="gray.500"
-                    fontWeight="semibold"
-                    href={funding.discord}
-                    isExternal
-                  >
-                    Join our community
-                  </Link>
-                </Flex>
-                <Flex alignItems="center" gridGap={2}>
-                  <FaGlobe color="gray.600" />
-                  <Link
-                    color="gray.500"
-                    fontWeight="semibold"
-                    href={funding.site}
-                    isExternal
-                  >
-                    Visit our website
-                  </Link>
-                </Flex>
+              <Flex
+                flexDir="column"
+                gridGap={3}
+                w={["full", "full", "50%", "50%"]}
+              >
+                {funding.twitter && (
+                  <Flex alignItems="center" gridGap={2}>
+                    <FaTwitter color="#1DA1F2" />
+                    <Text
+                      color="gray.500"
+                      textDecoration="underline"
+                      cursor="pointer"
+                      fontWeight="semibold"
+                      onClick={() =>
+                        window.open(
+                          `https://twitter.com/${funding.twitter}`,
+                          "_blank"
+                        )
+                      }
+                      isExternal
+                    >
+                      Follow us
+                    </Text>
+                  </Flex>
+                )}
+                {funding.discord && (
+                  <Flex alignItems="center" gridGap={2}>
+                    <FaDiscord color="#5865F2" />
+                    <Text
+                      color="gray.500"
+                      textDecoration="underline"
+                      cursor="pointer"
+                      fontWeight="semibold"
+                      onClick={() =>
+                        window.open(
+                          `https://${funding.discord
+                            .replaceAll("https:// ", "")
+                            .replaceAll("http://", "")}`,
+                          "_blank"
+                        )
+                      }
+                      isExternal
+                    >
+                      Join our community
+                    </Text>
+                  </Flex>
+                )}
+                {funding.site && (
+                  <Flex alignItems="center" gridGap={2}>
+                    <FaGlobe color="gray.600" />
+                    <Text
+                      color="gray.500"
+                      textDecoration="underline"
+                      cursor="pointer"
+                      fontWeight="semibold"
+                      onClick={() =>
+                        window.open(
+                          `https://${funding.site
+                            .replaceAll("https:// ", "")
+                            .replaceAll("http://", "")}`,
+                          "_blank"
+                        )
+                      }
+                      isExternal
+                    >
+                      Visit our website
+                    </Text>
+                  </Flex>
+                )}
               </Flex>
-              <Stack w="50%">
+              <Stack w={["full", "full", "50%", "50%"]}>
                 <Text fontFamily="Goldman" fontSize="xl" fontWeight="medium">
                   Funded{" "}
                   <Text as="span" fontWeight="bold">
@@ -156,7 +198,7 @@ const Funding = ({ funding }: { funding: IFunding }) => {
             </Flex>
             <Stack>
               <Heading mt={8} size="md">
-                Last Donations
+                Donations
               </Heading>
               <Table variant="simple">
                 <Thead>

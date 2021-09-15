@@ -5,18 +5,18 @@ const description =
 const SEO = {
   title,
   description,
-  canonical: "https://fastfeedback.io",
+  canonical: "https://casper-cf.org",
   openGraph: {
     type: "website",
     locale: "en_IE",
-    url: "https://fastfeedback.io",
+    url: "https://casper-cf.org",
     title,
     description,
     images: [
       {
-        url: "https://fastfeedback.io/og.png",
+        url: "https://casper-cf.org/logo.png",
         alt: title,
-        width: 1280,
+        width: 720,
         height: 720,
       },
     ],

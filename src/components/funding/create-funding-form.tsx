@@ -83,6 +83,17 @@ const CreateFundingForm = () => {
   };
 
   const onSubmit = async (data) => {
+    if (!profilePhotoHash) {
+      toast({
+        title: "Oops",
+        description: "You should upload a picture.",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+      });
+
+      return;
+    }
     setLoading(true);
 
     await fetch("/api/funding/create", {
@@ -108,6 +119,7 @@ const CreateFundingForm = () => {
       duration: 3000,
       isClosable: true,
     });
+
     setLoading(false);
     router.push("/my-fundraising-projects");
   };
