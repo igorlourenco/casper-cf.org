@@ -39,9 +39,9 @@ const Index = () => {
     fetchData();
   }, []);
 
-  const donate = async (fundingOwner: string) => {
+  const donate = async (fundingOwner: string, fundingId: string) => {
     if (!amount) return;
-    const data = await sendDonation(Number(amount), fundingOwner);
+    const data = await sendDonation(Number(amount), fundingOwner, fundingId);
 
     if (data.error) {
       toast({
@@ -88,71 +88,79 @@ const Index = () => {
         </Stack>
       </Container>
       {fundingProjects && (
-        <Marquee
-          speed={25}
-          gradient={false}
-          gradientWidth={0}
-          pauseOnHover={true}
-        >
-          {fundingProjects.map((project) => (
-            <Stack
-              mx={4}
-              spacing={3}
-              shadow="lg"
-              w="320px"
-              h="100%"
-              key={project._id}
-              p={18}
-            >
-              <Image
-                borderRadius="lg"
+        <>
+          <Stack px={16} mb={8}>
+            <Heading>Trending projects</Heading>
+          </Stack>
+          <Marquee
+            speed={25}
+            gradient={false}
+            gradientWidth={0}
+            pauseOnHover={true}
+          >
+            {fundingProjects.map((project) => (
+              <Stack
+                mx={4}
+                spacing={3}
                 shadow="lg"
-                src={
-                  `https://ipfs.io/ipfs/${project.profilePhotoHash}` ||
-                  "https://via.placeholder.com/300"
-                }
-                h="300px"
-              />
-              <Heading size="md">{project.name}</Heading>
-              <Text fontWeight="medium">
-                {project.description.slice(0, 70)}...
-              </Text>
-
-              <Flex gridGap={3}>
-                <Badge fontSize="sm" colorScheme="blue">
-                  {project.category}
-                </Badge>
-                <Badge fontSize="sm" colorScheme="blue">
-                  {project.hostedOn}
-                </Badge>
-              </Flex>
-
-              <Link
-                fontSize="sm"
-                textDecoration="underline"
-                href={`/${project.slug}`}
+                w="320px"
+                h="100%"
+                key={project._id}
+                p={18}
               >
-                View more
-              </Link>
-
-              <Stack pt={3}>
-                <Input
-                  size="sm"
-                  shadow="md"
-                  onChange={(e: any) => setAmount(e.target.value)}
-                  placeholder="How many FTM do you want to send?"
+                <Image
+                  borderRadius="lg"
+                  shadow="lg"
+                  src={
+                    `https://ipfs.io/ipfs/${project.profilePhotoHash}` ||
+                    "https://via.placeholder.com/300"
+                  }
+                  h="300px"
                 />
-                <CasperButton
-                  size="sm"
-                  isDisabled={!amount}
-                  onClick={() => donate(project.owner)}
+                <Heading size="md">{project.name}</Heading>
+                <Text fontWeight="medium">
+                  {project.description.slice(0, 70)}...
+                </Text>
+
+                <Flex gridGap={3}>
+                  <Badge fontSize="sm" colorScheme="blue">
+                    {project.category}
+                  </Badge>
+                  <Badge fontSize="sm" colorScheme="blue">
+                    {project.hostedOn}
+                  </Badge>
+                </Flex>
+
+                <Link
+                  fontSize="sm"
+                  textDecoration="underline"
+                  href={`/${project.slug}`}
                 >
-                  donate
-                </CasperButton>
+                  View more
+                </Link>
+
+                <Stack pt={3}>
+                  <Input
+                    borderWidth="1px"
+                    borderColor="gray.300"
+                    borderStyle="solid"
+                    size="md"
+                    shadow="sm"
+                    onChange={(e: any) => setAmount(e.target.value)}
+                    placeholder="How many FTM do you want to send?"
+                  />
+                  <CasperButton
+                    size="sm"
+                    isDisabled={!amount}
+                    onClick={() => donate(project.owner, project._id)}
+                  >
+                    donate
+                  </CasperButton>
+                </Stack>
               </Stack>
-            </Stack>
-          ))}
-        </Marquee>
+            ))}
+          </Marquee>
+        </>
       )}
       <Footer />
     </Box>

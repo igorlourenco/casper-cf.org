@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { useRouter } from "next/router";
 import { findFundingBySlug, getFunding } from "../database/funding";
@@ -19,12 +19,27 @@ import {
   Th,
 } from "@chakra-ui/react";
 import { FaTwitter, FaDiscord, FaGlobe } from "react-icons/fa";
-import { sendDonation } from "../utils/donate";
+import { getDonators, sendDonation } from "../utils/donate";
 import CasperButton from "../components/common/casper-button";
+import { format } from "date-fns";
 
 const Funding = ({ funding }: { funding: IFunding }) => {
   const router = useRouter();
   const toast = useToast();
+
+  const [donations, setDonations] = useState([]);
+  const [funded, setFunded] = useState(0);
+
+  useEffect(() => {
+    async function fetchData() {
+      const projectId = funding._id.toString().replaceAll('"', "");
+
+      const { donations, donated } = await getDonators(projectId);
+      setDonations(donations);
+      setFunded(donated);
+    }
+    fetchData();
+  }, [funding._id]);
 
   const [amount, setAmount] = useState<string | null>(null);
 
@@ -32,11 +47,11 @@ const Funding = ({ funding }: { funding: IFunding }) => {
 
   const donate = async () => {
     if (!amount) return;
-    const data = await sendDonation(Number(amount), funding.owner);
+    const data = await sendDonation(Number(amount), funding.owner, funding._id);
 
     if (data.error) {
       toast({
-        title: "Oops, something got wrong.",
+        title: "Oops, something went wrong.",
         description: data.error,
         status: "error",
         duration: 3000,
@@ -122,7 +137,7 @@ const Funding = ({ funding }: { funding: IFunding }) => {
                 <Text fontFamily="Goldman" fontSize="xl" fontWeight="medium">
                   Funded{" "}
                   <Text as="span" fontWeight="bold">
-                    {new Intl.NumberFormat("en-IN").format(1000)}/
+                    {new Intl.NumberFormat("en-IN").format(funded)}/
                     {new Intl.NumberFormat("en-IN").format(
                       Number(funding.amountNeeded)
                     )}
@@ -152,41 +167,15 @@ const Funding = ({ funding }: { funding: IFunding }) => {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  <Tr>
-                    <Td>inches</Td>
-                    <Td>millimetres (mm)</Td>
-                    <Td isNumeric>25.4</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>feet</Td>
-                    <Td>centimetres (cm)</Td>
-                    <Td isNumeric>30.48</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>yards</Td>
-                    <Td>metres (m)</Td>
-                    <Td isNumeric>0.91444</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>yards</Td>
-                    <Td>metres (m)</Td>
-                    <Td isNumeric>0.91444</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>yards</Td>
-                    <Td>metres (m)</Td>
-                    <Td isNumeric>0.91444</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>yards</Td>
-                    <Td>metres (m)</Td>
-                    <Td isNumeric>0.91444</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>yards</Td>
-                    <Td>metres (m)</Td>
-                    <Td isNumeric>0.91444</Td>
-                  </Tr>
+                  {donations &&
+                    donations.length > 0 &&
+                    donations.map((donation) => (
+                      <Tr>
+                        <Td>{donation.contributor}</Td>
+                        <Td>{donation.valueDonated} FTM</Td>
+                        <Td>{format(donation.sentAt, "MM/dd/yy HH:mm")}</Td>
+                      </Tr>
+                    ))}
                 </Tbody>
               </Table>
             </Stack>
