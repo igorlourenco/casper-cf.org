@@ -14,7 +14,7 @@ const SEO = {
     description,
     images: [
       {
-        url: "https://casper-cf.org/logo.png",
+        url: "https://casper-cf.org/images/logo.png",
         alt: title,
         width: 720,
         height: 720,
