@@ -17,8 +17,8 @@ import {
   FiMoon,
   FiBox,
 } from "react-icons/fi";
-import { useEthers } from "@usedapp/core";
-
+import { analytics } from "../../utils/firebase";
+import { logEvent } from "@firebase/analytics";
 interface MenuProps {
   account: string;
   deactivate: () => void;
@@ -48,7 +48,10 @@ const Menu = ({ account, deactivate }: MenuProps) => {
       <MenuList>
         <MenuItem
           icon={<FiHeart />}
-          onClick={() => router.push("/fundraising/create")}
+          onClick={() => {
+            router.push("/fundraising/create");
+            logEvent(analytics, "create_fundraising_clicked");
+          }}
         >
           Create Funding Project
         </MenuItem>
@@ -67,19 +70,24 @@ const Menu = ({ account, deactivate }: MenuProps) => {
         </MenuItem>
         <MenuItem
           icon={<FiBox />}
-          onClick={() =>
+          onClick={() => {
+            logEvent(analytics, "feedback_clicked");
+
             window.open(
               "https://indbc0lvsaq.typeform.com/to/jkg6RbYG",
               "_blank"
-            )
-          }
+            );
+          }}
         >
           Feedback
         </MenuItem>
         <MenuItem
           icon={<FiLogOut />}
           fontSize="sm"
-          onClick={() => deactivate()}
+          onClick={() => {
+            logEvent(analytics, "logout_clicked");
+            deactivate();
+          }}
         >
           Disconnect
         </MenuItem>

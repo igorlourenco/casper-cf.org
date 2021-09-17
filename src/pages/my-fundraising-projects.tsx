@@ -6,6 +6,8 @@ import Layout from "../components/common/layout";
 import CreateFunding from "../components/funding/create-funding";
 import FundingList from "../components/funding/funding-list";
 import Funding from "../types/funding";
+import { logEvent } from "firebase/analytics";
+import { analytics } from "../utils/firebase";
 
 const MyFundings = () => {
   const { account } = useEthers();
@@ -13,6 +15,7 @@ const MyFundings = () => {
 
   useEffect(() => {
     async function fetchData() {
+      logEvent(analytics, "dashboard_visited");
       const url = new URL(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/funding/get-by-owner`
       );

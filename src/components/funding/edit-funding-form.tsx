@@ -21,6 +21,8 @@ import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { uploadToIpfs } from "../../utils/ipfs";
+import { logEvent } from "firebase/analytics";
+import { analytics } from "../../utils/firebase";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -72,6 +74,7 @@ const EditFundingForm = ({ ...funding }: any) => {
     const responseData = await response.json();
 
     setLoading(false);
+    logEvent(analytics, "funding_updated");
     router.push("/my-fundraising-projects");
   };
 

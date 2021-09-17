@@ -25,6 +25,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { uploadToIpfs } from "../../utils/ipfs";
 import CasperButton from "../common/casper-button";
+import { logEvent } from "firebase/analytics";
+import { analytics } from "../../utils/firebase";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -121,6 +123,7 @@ const CreateFundingForm = () => {
     });
 
     setLoading(false);
+    logEvent(analytics, "funding_created");
     router.push("/my-fundraising-projects");
   };
 

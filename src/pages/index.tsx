@@ -21,6 +21,8 @@ import { useEffect, useState } from "react";
 import Funding from "../types/funding";
 import CasperButton from "../components/common/casper-button";
 import { sendDonation } from "../utils/donate";
+import { logEvent } from "firebase/analytics";
+import { analytics } from "../utils/firebase";
 
 const Index = () => {
   const toast = useToast();
@@ -30,6 +32,7 @@ const Index = () => {
   const [amount, setAmount] = useState<number | null>(null);
 
   useEffect(() => {
+    logEvent(analytics, "view_landing_page");
     async function fetchData() {
       const response = await fetch("/api/funding/get-last");
       const { fundings } = await response.json();

@@ -8,6 +8,8 @@ import Layout from "../../components/common/layout";
 import { Table, Td, Tr, Tbody, Thead, Th } from "@chakra-ui/react";
 import { getDonators } from "../../utils/donate";
 import { format } from "date-fns";
+import { analytics } from "../../utils/firebase";
+import { logEvent } from "@firebase/analytics";
 
 const Supporters = ({ funding }: { funding: IFunding }) => {
   const router = useRouter();
@@ -17,6 +19,7 @@ const Supporters = ({ funding }: { funding: IFunding }) => {
 
   useEffect(() => {
     async function fetchData() {
+      logEvent(analytics, "supporters_viewed");
       const projectId = funding?._id.toString().replaceAll('"', "");
 
       const { donations, donated } = await getDonators(projectId);

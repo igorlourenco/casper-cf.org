@@ -22,6 +22,8 @@ import { FaTwitter, FaDiscord, FaGlobe } from "react-icons/fa";
 import { getDonators, sendDonation } from "../utils/donate";
 import CasperButton from "../components/common/casper-button";
 import { format } from "date-fns";
+import { analytics } from "../utils/firebase";
+import { logEvent } from "@firebase/analytics";
 
 const Funding = ({ funding }: { funding: IFunding }) => {
   const router = useRouter();
@@ -33,6 +35,8 @@ const Funding = ({ funding }: { funding: IFunding }) => {
   const [funded, setFunded] = useState(0);
 
   useEffect(() => {
+    logEvent(analytics, "project_viewed");
+
     async function fetchData() {
       const projectId = funding?._id.toString().replaceAll('"', "");
 

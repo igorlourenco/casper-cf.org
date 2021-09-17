@@ -1,6 +1,8 @@
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import Donate from "../contracts/donate.json";
+import { logEvent } from "firebase/analytics";
+import { analytics } from "./firebase";
 
 export async function sendDonation(
   donation: number,
@@ -29,6 +31,7 @@ export async function sendDonation(
       return { transaction: null, error: error?.data?.message };
     });
 
+  logEvent(analytics, "donation");
   return data;
 }
 

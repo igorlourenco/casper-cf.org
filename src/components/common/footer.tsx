@@ -8,6 +8,8 @@ import {
 } from "@chakra-ui/react";
 import { FaTwitter, FaDiscord } from "react-icons/fa";
 import { useRouter } from "next/router";
+import { logEvent } from "@firebase/analytics";
+import { analytics } from "../../utils/firebase";
 
 const Footer = () => {
   const router = useRouter();
@@ -59,6 +61,16 @@ const Footer = () => {
 
         <Link
           fontSize="sm"
+          onClick={() => logEvent(analytics, "feedback_clicked")}
+          textTransform="uppercase"
+          _hover={{ color: "gray.500" }}
+          href="https://indbc0lvsaq.typeform.com/to/jkg6RbYG"
+        >
+          Feedback
+        </Link>
+
+        <Link
+          fontSize="sm"
           isExternal
           textTransform="uppercase"
           _hover={{ color: "gray.500" }}
@@ -101,6 +113,7 @@ const Footer = () => {
           />
 
           <Image
+            rounded="full"
             cursor="pointer"
             onClick={() =>
               window.open(
@@ -109,7 +122,7 @@ const Footer = () => {
               )
             }
             w="32px"
-            src="/images/fantom.webp"
+            src="/images/fantom.png"
           />
         </Flex>
       </Flex>
