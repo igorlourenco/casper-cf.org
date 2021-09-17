@@ -1,6 +1,6 @@
 const title = "Casper Fundraising";
 const description =
-  "Ask for community support to your blockchain-based project. Raise funds and support builders with $FTM.";
+  "Crypto-based fundraising made easy with Fantom - Ask for community support to your blockchain-based project. Raise funds and support builders with $FTM.";
 
 const SEO = {
   title,
