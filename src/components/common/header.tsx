@@ -1,10 +1,4 @@
-import {
-  Flex,
-  Heading,
-  useColorModeValue,
-  Image,
-  Text,
-} from "@chakra-ui/react";
+import { Flex, Heading, useColorModeValue, Image } from "@chakra-ui/react";
 import { useEthers } from "@usedapp/core";
 import { useRouter } from "next/router";
 import LoginButton from "./login-button";

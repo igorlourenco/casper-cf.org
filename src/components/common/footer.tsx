@@ -1,38 +1,119 @@
-import { Flex, Heading, Stack, Image, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Stack,
+  Image,
+  Link,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { FaTwitter, FaDiscord } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 const Footer = () => {
+  const router = useRouter();
+
   return (
-    <Flex
-      borderTopColor="gray.200"
-      borderTopStyle="solid"
+    <Stack
       borderTopWidth="1px"
-      px={[6, 6, 8, 16]}
-      py={6}
-      alignItems="center"
-      justifyContent="space-between"
+      borderTopStyle="solid"
+      borderTopColor={useColorModeValue(
+        "linear(to-l, blue.600, blue.800)",
+        "linear(to-r, blue.200, blue.400)"
+      )}
+      mt={8}
+      pt={4}
     >
-      <Flex alignItems="center" gridGap={3}>
-        <Image src="/images/logo.png" w="3rem" h="3rem" />
-        <Stack spacing={0}>
-          <Heading size="md">Casper Fundraising</Heading>
-          <Text size="sm" fontWeight="semibold">
-            From builders to builders.
-          </Text>
-        </Stack>
+      <Flex alignItems="center" justifyContent="center" gridGap={4}>
+        <Image src="/images/logo.png" w="4rem" h="4rem" />
       </Flex>
-      <Flex gridGap={2}>
-        <FaTwitter
-          cursor="pointer"
-          onClick={() =>
-            window.open("https://twitter.com/CasperFunding", "_blank")
-          }
-          size={32}
-          color="#1DA1F2"
-        />
-        {/* <FaDiscord size={32} color="#5865F2" /> */}
+      <Flex
+        alignItems="center"
+        justifyContent="center"
+        gridGap={3}
+        flexDir={["column", "column", "row", "row"]}
+      >
+        <Link
+          fontSize="sm"
+          textTransform="uppercase"
+          _hover={{ color: "gray.500" }}
+          href="/"
+        >
+          Home
+        </Link>
+        <Link
+          fontSize="sm"
+          textTransform="uppercase"
+          _hover={{ color: "gray.500" }}
+          href="/fundraising/create"
+        >
+          Start funding
+        </Link>
+        <Link
+          fontSize="sm"
+          textTransform="uppercase"
+          _hover={{ color: "gray.500" }}
+          href="https://twitter.com/casper_fundraising"
+        >
+          View Projects
+        </Link>
+
+        <Link
+          fontSize="sm"
+          isExternal
+          textTransform="uppercase"
+          _hover={{ color: "gray.500" }}
+          href="https://ftmscan.com/address/0xa27cd300244a04513B69a3e0cC5aca7bdc04e570"
+        >
+          Contract on FTMScan
+        </Link>
       </Flex>
-    </Flex>
+      <Flex
+        alignItems="center"
+        justifyContent="space-between"
+        px={16}
+        py={3}
+        gridGap={4}
+        flexDir={["column-reverse", "column-reverse", "row", "row"]}
+      >
+        <Text>
+          Made with 💙 by{" "}
+          <Link
+            bgGradient={useColorModeValue(
+              "linear(to-l, blue.600, blue.800)",
+              "linear(to-r, blue.200, blue.400)"
+            )}
+            fontWeight="medium"
+            bgClip="text"
+            isExternal
+            href="https://twitter.com/igorlourencox"
+          >
+            @igorlourencox
+          </Link>
+        </Text>
+        <Flex gridGap={2}>
+          <FaTwitter
+            cursor="pointer"
+            onClick={() =>
+              window.open("https://twitter.com/CasperFunding", "_blank")
+            }
+            size={32}
+            color="#1DA1F2"
+          />
+
+          <Image
+            cursor="pointer"
+            onClick={() =>
+              window.open(
+                "https://ftmscan.com/address/0xa27cd300244a04513B69a3e0cC5aca7bdc04e570",
+                "_blank"
+              )
+            }
+            w="32px"
+            src="/images/fantom.webp"
+          />
+        </Flex>
+      </Flex>
+    </Stack>
   );
 };
 
