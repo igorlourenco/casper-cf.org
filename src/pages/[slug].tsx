@@ -29,8 +29,6 @@ const Funding = ({ funding }: { funding: IFunding }) => {
   const router = useRouter();
   const toast = useToast();
 
-  console.log(funding);
-
   const [donations, setDonations] = useState([]);
   const [funded, setFunded] = useState(0);
 

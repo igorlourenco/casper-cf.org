@@ -37,7 +37,6 @@ const Index = () => {
       const response = await fetch("/api/funding/get-last");
       const { fundings } = await response.json();
       setFundingProjects(fundings);
-      console.log("set");
     }
     fetchData();
   }, []);

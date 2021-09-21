@@ -6,7 +6,7 @@ import theme from "../theme";
 import SEO from "../../next-seo.config";
 
 const config = {
-  supportedChains: [250],
+  supportedChains: [250, 56],
 };
 
 function MyApp({ Component, pageProps }: AppProps) {

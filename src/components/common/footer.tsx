@@ -74,7 +74,7 @@ const Footer = () => {
           isExternal
           textTransform="uppercase"
           _hover={{ color: "gray.500" }}
-          href="https://ftmscan.com/address/0xa27cd300244a04513B69a3e0cC5aca7bdc04e570"
+          href="https://ftmscan.com/address/0x237dEcaF67a3c64703577098D5817D7AE60E48D5"
         >
           Contract on FTMScan
         </Link>
@@ -117,7 +117,7 @@ const Footer = () => {
             cursor="pointer"
             onClick={() =>
               window.open(
-                "https://ftmscan.com/address/0xa27cd300244a04513B69a3e0cC5aca7bdc04e570",
+                "https://ftmscan.com/address/0x237dEcaF67a3c64703577098D5817D7AE60E48D5",
                 "_blank"
               )
             }
